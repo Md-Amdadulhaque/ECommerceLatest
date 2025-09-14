@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Collections.Concurrent;
+using System.Text;
 using E_commerce.Interface;
 using E_commerce.Models;
 using Microsoft.Extensions.Options;
@@ -9,54 +10,48 @@ namespace E_commerce.Services
     public class EventPublisher : IEventPublisher
     {
         private readonly RabbitMqSettings _settings;
-        public EventPublisher(IOptions<RabbitMqSettings> options)
+        private readonly ConcurrentBag<IModel> _channelPool;
+        private readonly IConnection _connection;
+        private readonly int _poolSize;
+        public EventPublisher(string hostName,int poolSize = 5)
         {
-            _settings = options.Value; 
+            _poolSize = poolSize;
+            _channelPool = new ConcurrentBag<IModel>();
+            var factory = new ConnectionFactory { HostName = hostName };
+            for(int i = 0; i < _poolSize; i++)
+            {
+                var channel = _connection.CreateModel();
+                _channelPool.Add(channel);
+            }
         }
-        public bool Publish(EventModel eventModel)
+        public void Publish(EventModel eventModel)
         {
+            if (!_channelPool.TryTake(out var channel))
+            {
+                channel = _connection.CreateModel();
+            }
             try
             {
-                var factory = new ConnectionFactory()
-                {
-                    HostName = _settings.HostName,
-                    UserName = _settings.UserName,
-                    Password = _settings.Password,
-                    Port = _settings.Port
-                };
+                // Declare the queue (safe even if it already exists)
+                channel.QueueDeclare(queue: eventModel.queueName,
+                                     durable: true,
+                                     exclusive: false,
+                                     autoDelete: false,
+                                     arguments: null);
 
-                using var connection = factory.CreateConnection();
-                using var channel = connection.CreateModel();
+                var body = Encoding.UTF8.GetBytes(eventModel.message);
 
-
-                // declare queue
-                channel.QueueDeclare(
-                    queue: _settings.Queue,
-                    durable: true,
-                    exclusive: false,
-                    autoDelete: false,
-                    arguments: null
-                );
-
-                // serialize event
-                var body = Encoding.UTF8.GetBytes(System.Text.Json.JsonSerializer.Serialize(eventModel));
-
-                // publish message
-                channel.BasicPublish(
-                    exchange: _settings.Exchange,
-                    routingKey: _settings.Queue,
-                    basicProperties: null,
-                    body: body
-                );
-
-                Console.WriteLine($" [x] Published event: {eventModel}");
-                return true;
+                channel.BasicPublish(exchange: "",
+                                     routingKey: eventModel.queueName,
+                                     basicProperties: null,
+                                     body: body);
             }
-            catch (Exception ex)
+            finally
             {
-                Console.WriteLine($" [!] Error publishing event: {ex.Message}");
-                return false;
+                // Return channel to pool
+                _channelPool.Add(channel);
             }
+            
         }
     }
 }

@@ -98,7 +98,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
@@ -111,8 +111,7 @@
               "ViewState": "AgIAACEAAAAAAAAAAAAYwCAAAAAlAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-09T16:17:27.868Z",
-              "IsPinned": true,
-              "EditorCaption": ""
+              "IsPinned": true
             },
             {
               "$type": "Document",
@@ -125,7 +124,19 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-09T16:13:41.338Z",
-              "IsPinned": true,
+              "IsPinned": true
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "EventConsumer.cs",
+              "DocumentMoniker": "U:\\Ecommerce-master\\Ecommerce-master\\E_commerce\\Services\\EventConsumer.cs",
+              "RelativeDocumentMoniker": "E_commerce\\Services\\EventConsumer.cs",
+              "ToolTip": "U:\\Ecommerce-master\\Ecommerce-master\\E_commerce\\Services\\EventConsumer.cs",
+              "RelativeToolTip": "E_commerce\\Services\\EventConsumer.cs",
+              "ViewState": "AgIAAAEAAAAAAAAAAAAAACAAAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-09T16:12:16.768Z",
               "EditorCaption": ""
             },
             {
@@ -138,21 +149,7 @@
               "RelativeToolTip": "E_commerce\\Program.cs",
               "ViewState": "AgIAAAkAAAAAAAAAAAAAAAwAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-09T16:08:34.409Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "EventConsumer.cs",
-              "DocumentMoniker": "U:\\Ecommerce-master\\Ecommerce-master\\E_commerce\\Services\\EventConsumer.cs",
-              "RelativeDocumentMoniker": "E_commerce\\Services\\EventConsumer.cs",
-              "ToolTip": "U:\\Ecommerce-master\\Ecommerce-master\\E_commerce\\Services\\EventConsumer.cs",
-              "RelativeToolTip": "E_commerce\\Services\\EventConsumer.cs",
-              "ViewState": "AgIAAA4AAAAAAAAAAAAQwCAAAAAkAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-09T16:12:16.768Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-09T16:08:34.409Z"
             },
             {
               "$type": "Document",
@@ -164,8 +161,7 @@
               "RelativeToolTip": "E_commerce\\Models\\RabbitMqSettings.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAsAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-09T16:23:45.29Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-09T16:23:45.29Z"
             },
             {
               "$type": "Document",
@@ -177,8 +173,7 @@
               "RelativeToolTip": "E_commerce\\appsettings.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAAOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-09-09T16:08:50.452Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-09T16:08:50.452Z"
             },
             {
               "$type": "Document",
@@ -190,8 +185,7 @@
               "RelativeToolTip": "E_commerce\\Interface\\IEventConsumer.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-09T16:13:33.566Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-09T16:13:33.566Z"
             },
             {
               "$type": "Document",
@@ -203,8 +197,7 @@
               "RelativeToolTip": "E_commerce\\Controllers\\CategoryController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAADcAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-14T11:58:00.487Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-14T11:58:00.487Z"
             },
             {
               "$type": "Document",
@@ -216,8 +209,7 @@
               "RelativeToolTip": "E_commerce\\Models\\User.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAbAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-09T16:14:59.738Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-09T16:14:59.738Z"
             },
             {
               "$type": "Document",
@@ -229,8 +221,7 @@
               "RelativeToolTip": "E_commerce\\Models\\EventModel.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-09T16:19:08.666Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-09T16:19:08.666Z"
             },
             {
               "$type": "Document",
@@ -242,8 +233,7 @@
               "RelativeToolTip": "E_commerce\\Controllers\\EmailController.cs",
               "ViewState": "AgIAAA4AAAAAAAAAAAAAwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-14T11:58:09.787Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-14T11:58:09.787Z"
             },
             {
               "$type": "Document",
@@ -255,8 +245,7 @@
               "RelativeToolTip": "E_commerce\\Controllers\\ProductController.cs",
               "ViewState": "AgIAACYAAAAAAAAAAAAIwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-14T11:58:12.752Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-14T11:58:12.752Z"
             },
             {
               "$type": "Document",
@@ -268,8 +257,7 @@
               "RelativeToolTip": "E_commerce\\Controllers\\RoleController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-09T16:14:40.439Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-09T16:14:40.439Z"
             },
             {
               "$type": "Document",
@@ -281,8 +269,7 @@
               "RelativeToolTip": "E_commerce\\Controllers\\CartController.cs",
               "ViewState": "AgIAAB4AAAAAAAAAAAAYwCIAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-14T11:57:54.555Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-14T11:57:54.555Z"
             },
             {
               "$type": "Document",
@@ -294,8 +281,7 @@
               "RelativeToolTip": "E_commerce\\Controllers\\UserController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-09T16:14:38.682Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-09T16:14:38.682Z"
             },
             {
               "$type": "Document",
@@ -307,8 +293,7 @@
               "RelativeToolTip": "E_commerce\\Controllers\\UserRoleController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-14T11:58:29.615Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-14T11:58:29.615Z"
             },
             {
               "$type": "Document",
@@ -320,8 +305,7 @@
               "RelativeToolTip": "E_commerce\\Services\\EmailConsumerService.cs",
               "ViewState": "AgIAAAwAAAAAAAAAAAAzwBYAAAAcAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-09T16:12:10.964Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-09T16:12:10.964Z"
             },
             {
               "$type": "Document",
@@ -333,8 +317,7 @@
               "RelativeToolTip": "E_commerce\\Interface\\IEmailConsumerService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-09T16:11:28.895Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-09T16:11:28.895Z"
             },
             {
               "$type": "Document",
@@ -346,8 +329,7 @@
               "RelativeToolTip": "E_commerce\\Services\\UserService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-09T16:10:49.004Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-09T16:10:49.004Z"
             },
             {
               "$type": "Document",
@@ -359,8 +341,7 @@
               "RelativeToolTip": "E_commerce\\Services\\RoleService.cs",
               "ViewState": "AgIAAA0AAAAAAAAAAAAzwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-09T16:10:38.817Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-09T16:10:38.817Z"
             },
             {
               "$type": "Document",
@@ -372,8 +353,7 @@
               "RelativeToolTip": "E_commerce\\Services\\RabbitMqEventPublisher.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-09T16:09:47.862Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-09T16:09:47.862Z"
             },
             {
               "$type": "Document",
@@ -385,8 +365,7 @@
               "RelativeToolTip": "E_commerce\\Properties\\launchSettings.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-09-09T16:09:06.037Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-09T16:09:06.037Z"
             }
           ]
         }
