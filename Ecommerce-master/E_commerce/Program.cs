@@ -27,7 +27,9 @@ namespace E_commerce
                 });
             });
 
-            builder.Services.Configure<RabbitMqSettings>(builder.Configuration.GetSection("RabbitMq"));
+            var rabbitSettings = builder.Configuration.GetSection("RabbitMq").Get<RabbitMqSettings>();
+            builder.Services.AddSingleton(rabbitSettings);
+
             builder.Services.AddSingleton<IEventPublisher, EventPublisher>();
 
             builder.Services.AddSingleton(typeof(IMongoDbContext<>), typeof(MongoDbContext<>));
@@ -44,8 +46,8 @@ namespace E_commerce
 
 
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(options =>
-    {
+         .AddJwtBearer(options =>
+        {
         options.TokenValidationParameters = new TokenValidationParameters
         {
 

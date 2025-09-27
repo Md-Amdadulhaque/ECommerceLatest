@@ -8,5 +8,7 @@
         public int Port { get; set; }
         public string Exchange { get; set; }
         public string Queue { get; set; }
+
+        public int PoolSize { get; set; }
     }
 }

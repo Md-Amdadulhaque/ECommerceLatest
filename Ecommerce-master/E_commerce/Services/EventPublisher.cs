@@ -7,18 +7,23 @@ using RabbitMQ.Client;
 
 namespace E_commerce.Services
 {
+   // [s]
     public class EventPublisher : IEventPublisher
     {
         private readonly RabbitMqSettings _settings;
         private readonly ConcurrentBag<IModel> _channelPool;
         private readonly IConnection _connection;
         private readonly int _poolSize;
-        public EventPublisher(string hostName,int poolSize = 5)
+        public EventPublisher(RabbitMqSettings settings)
         {
-            _poolSize = poolSize;
+            _settings = settings;
+            _poolSize = _settings.PoolSize;
             _channelPool = new ConcurrentBag<IModel>();
-            var factory = new ConnectionFactory { HostName = hostName };
-            for(int i = 0; i < _poolSize; i++)
+            var factory = new ConnectionFactory { HostName = _settings.HostName };
+
+            _connection = factory.CreateConnection();
+
+            for (int i = 0; i < _poolSize; i++)
             {
                 var channel = _connection.CreateModel();
                 _channelPool.Add(channel);
@@ -32,7 +37,6 @@ namespace E_commerce.Services
             }
             try
             {
-                // Declare the queue (safe even if it already exists)
                 channel.QueueDeclare(queue: eventModel.queueName,
                                      durable: true,
                                      exclusive: false,

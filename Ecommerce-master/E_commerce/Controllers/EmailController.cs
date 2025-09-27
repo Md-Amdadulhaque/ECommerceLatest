@@ -19,11 +19,12 @@ namespace E_commerce.Controllers
         }
 
 
-        [HttpPost("")]
-        public async Task<IActionResult> SendMailAsync([FromBody] MailRequest mailRequest)
-        {
-         var send = _emailConsumerService.SendMailAsync(mailRequest);
-            return (send ? "Email Send Successfully" : "Email Didn't Send");
-        }
+        //[HttpPost("")]
+        //public async Task<IActionResult> SendMailAsync([FromBody] MailRequest mailRequest)
+        //{
+        //    //var send = _emailConsumerService.SendMailAsync(mailRequest);
+        //    var send = 5;
+        //    return (send ? "Email Send Successfully" : "Email Didn't Send");
+        //}
     }
 }
