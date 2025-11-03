@@ -46,13 +46,13 @@ namespace E_commerce.Services
         }
 
         public async Task RegisterUserAsync(User user)
-        { 
-            await _databaseService.AddAsync(user);
+        {   if(user.Id!=null)
+            { await _databaseService.AddAsync(user); }
         }
 
         public async Task UnRegisterUserAsync(User user)
         {
-            await _databaseService.DeleteAsync(user.Id);
+            await _databaseService.DeleteAsync(user?.Id);
         }
 
         public async Task<string> GetTokenAsync(string userName, string password)
