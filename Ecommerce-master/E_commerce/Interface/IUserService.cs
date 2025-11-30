@@ -16,7 +16,7 @@ namespace E_commerce.Interface
         public Task<string> GetIdByUserAsync(string userName);
         public Task<string> GetTokenAsync(string userName,string password);
 
-        //public Task<string> GenerateTokenAsync(string userName);
+        public Task<User?> GetUserByUserAsync(User user);
 
 
 

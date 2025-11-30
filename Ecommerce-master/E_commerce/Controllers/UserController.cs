@@ -20,6 +20,12 @@ namespace E_commerce.Controllers
         public async Task<List<User>> Get() =>
         await _userService.GetAsync();
 
+        [HttpGet("/GetUserByUser")]
+        public async Task<ActionResult<User?>> GetUserAsync([FromQuery] string name, [FromQuery] string email)
+        {
+            var user = new User { UserName = name, Email = email };
+            return Ok(await _userService.GetUserByUserAsync(user));
+        }
 
         [HttpPost("/RegisterUser")]
         public async Task<IActionResult> RegisterUser([FromBody] User user)
@@ -44,7 +50,6 @@ namespace E_commerce.Controllers
         }
 
         [HttpPost("Login")]
-
         public async Task<IActionResult> Login([FromBody] Login login)
         {
             var token = await _userService.GetTokenAsync(login.UserName, login.Password);

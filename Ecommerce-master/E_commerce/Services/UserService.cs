@@ -38,6 +38,12 @@ namespace E_commerce.Services
             return await _databaseService.GetAllAsync();
         }
 
+        public async Task<User?> GetUserByUserAsync(User user)
+        {
+            var all = await _databaseService.GetAllAsync();
+            var userFound = all.FirstOrDefault(x => x.UserName == user.UserName && x.Email == user.Email);
+            return userFound;
+        }
         public async Task<string> GetIdByUserAsync(string name)
         {
             var all = await _databaseService.GetAllAsync();
