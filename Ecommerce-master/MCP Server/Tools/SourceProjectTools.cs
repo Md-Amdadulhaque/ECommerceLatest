@@ -25,5 +25,32 @@ namespace MCP_Server.Tools
             var result = await client.GetAsync<object>($"/api/product/cheapest?count={count}");
             return System.Text.Json.JsonSerializer.Serialize(result);
         }
+
+        [McpServerTool]
+        [Description("Get all laptops from database")]
+        public static async Task<string> GetAllLaptops(
+            SourceClient client)
+        {
+            var result = await client.GetAsync<object>("/api/products?category=laptop");
+            return System.Text.Json.JsonSerializer.Serialize(result);
+        }
+
+        [McpServerTool]
+        [Description("Get all Mac laptops from database")]
+        public static async Task<string> GetMacLaptops(
+            SourceClient client)
+        {
+            var result = await client.GetAsync<object>("/api/products?category=mac");
+            return System.Text.Json.JsonSerializer.Serialize(result);
+        }
+
+        [McpServerTool]
+        [Description("Get all mobile phones from database")]
+        public static async Task<string> GetAllMobiles(
+            SourceClient client)
+        {
+            var result = await client.GetAsync<object>("/api/products?category=mobile");
+            return System.Text.Json.JsonSerializer.Serialize(result);
+        }
     }
 }
