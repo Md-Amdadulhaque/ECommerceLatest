@@ -1,5 +1,6 @@
 ﻿using E_commerce.Models;
 using Microsoft.Extensions.Options;
+using System.Linq;
 using MongoDB.Driver;
 using E_commerce.Interface;
 namespace E_commerce.Services;
@@ -39,7 +40,17 @@ public class ProductServices:IProductService
     {
         await _databaseService.AddAsync(product);
     }
+    
+    public async Task<List<Product>> GetTopCheapestAsync(int count = 1)
+    {
+        if (count <= 0) return new List<Product>();
 
+        var sort = Builders<Product>.Sort.Ascending(p => p.Price);
+        var filter = Builders<Product>.Filter.Ne(p => p.Price, null);
+
+        var cheapest = await _databaseService.GetBySortThenFilterAsync(sort, filter, count);
+        return cheapest;
+    }
 
 
     public async Task UpdateAsync(string id,Product updatedProduct)

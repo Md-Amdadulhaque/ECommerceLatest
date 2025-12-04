@@ -70,6 +70,14 @@ namespace E_commerce.Services
         {
             await _collection.UpdateOneAsync(filter, update);
         }
+        public async Task<List<T>> GetBySortThenFilterAsync(SortDefinition<T> sort, FilterDefinition<T> filter, int limit)
+        {
+            return await _collection.Aggregate()
+                .Sort(sort)
+                .Match(filter)
+                .Limit(limit)
+                .ToListAsync();
+        }
 
 
 

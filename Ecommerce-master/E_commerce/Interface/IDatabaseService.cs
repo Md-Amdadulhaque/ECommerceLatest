@@ -8,6 +8,7 @@ namespace E_commerce.Interface
         public Task SetCollection(string collectionName);
         public Task<List<T>> GetAllAsync();
         public Task<List<T>> GetByFilterAsync(FilterDefinition<T> filter);
+        public Task<List<T>> GetBySortThenFilterAsync(SortDefinition<T> sort, FilterDefinition<T> filter, int limit);
 
         public Task<T> FindAsync(string id);
         public Task<T> FindAsync(string userName, string password);

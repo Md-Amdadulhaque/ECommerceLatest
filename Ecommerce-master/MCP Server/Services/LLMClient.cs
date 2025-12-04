@@ -44,14 +44,11 @@ namespace MCP_Server.Services
                 }
             };
 
-
-
             var url = $"{_baseUrl}/models/{_model}:generateContent?key={_apiKey}";
             var response = await _httpClient.PostAsJsonAsync(url, request);
             response.EnsureSuccessStatusCode();
 
             var result = await response.Content.ReadFromJsonAsync<JsonElement>();
-
             return ParseResponse(result);
         }
         public LLMResponse ParseResponse(JsonElement result)

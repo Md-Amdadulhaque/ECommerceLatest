@@ -14,11 +14,10 @@ namespace E_commerce.Interface
 
         public Task CreateAsync(Product newProduct);
 
+        public Task<List<Product>> GetTopCheapestAsync(int count = 1);
 
         public Task UpdateAsync(string id, Product product);
-        
-
-
+    
         public Task RemoveAsync(string id);
         
 
