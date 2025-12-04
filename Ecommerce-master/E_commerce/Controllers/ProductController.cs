@@ -11,42 +11,34 @@ namespace E_commerce.Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
-        private  IProductService _productService;
+        private IProductService _productService;
 
         public ProductController(IProductService productService)
         {
             _productService = productService;
-
         }
+
         [HttpGet]
         public async Task<List<Product>> Get() =>
-        await _productService.GetAsync();
-
+            await _productService.GetAsync();
 
         [HttpPost("FilterBy")]
-
-        public async Task<List<Product>> Get([FromBody] RequestItem Req)=>
-        await _productService.GetAsync(Req.PageIndex,Req.PageSize);
-
+        public async Task<List<Product>> Get([FromBody] RequestItem Req) =>
+            await _productService.GetAsync(Req.PageIndex, Req.PageSize);
 
         [HttpPost("GetById")]
         public async Task<ActionResult<Product>> Get([FromBody] ID id)
-        {   
+        {
             var product = await _productService.GetWithIdAsync(id.Id);
             return product;
         }
-
-
 
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] Product newProduct)
         {
             await _productService.CreateAsync(newProduct);
-
             return CreatedAtAction(nameof(Get), new { id = newProduct.Id }, newProduct);
         }
-
-
 
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(string id, Product updatedProduct)
@@ -65,6 +57,15 @@ namespace E_commerce.Controllers
             return NoContent();
         }
 
+        [HttpGet("cheapest")]
+        public async Task<IActionResult> GetCheapest([FromQuery] int count = 1)
+        {
+            if (count <= 0) return BadRequest("count must be greater than 0");
+
+            var products = await _productService.GetTopCheapestAsync(count);
+            return Ok(products);
+        }
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(string id)
         {
@@ -75,16 +76,10 @@ namespace E_commerce.Controllers
                 return NotFound();
             }
 
-
             await _productService.RemoveAsync(id);
 
             return Ok();
         }
-
-
-
-
-
-
     }
+}
 }

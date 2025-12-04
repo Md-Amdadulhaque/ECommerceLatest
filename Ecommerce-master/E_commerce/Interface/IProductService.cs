@@ -5,7 +5,6 @@ namespace E_commerce.Interface
     public interface IProductService
     {
 
-        
         public Task<List<Product>> GetAsync();
 
         public Task<List<Product>> GetAsync(int pageNumber,int pageSize);
