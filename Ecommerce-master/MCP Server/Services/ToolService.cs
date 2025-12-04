@@ -59,7 +59,6 @@ namespace MCP_Server.Services
 
             foreach (var param in parameters)
             {
-                if (param.ParameterType.Name == "SourceClient") continue;
 
                 var description = param.GetCustomAttribute<Description>()?.Description ?? param.Name;
                 var typeName = param.ParameterType.Name.ToLower();
