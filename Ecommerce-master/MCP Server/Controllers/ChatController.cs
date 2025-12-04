@@ -43,7 +43,6 @@ namespace MCP_Server.Controllers
                     ToolResult = toolResult?.Result
                 });
             }
-
             return new ChatResponse
             {
                 Reply = "No ToolFound"
@@ -53,7 +52,6 @@ namespace MCP_Server.Controllers
         private List<object> GetToolDefinitions()
         {
             var tools = new List<object>();
-
             // Scan all assemblies for types marked with [McpServerToolType]
             var toolTypes = AppDomain.CurrentDomain.GetAssemblies()
                 .SelectMany(s => s.GetTypes())
@@ -84,7 +82,6 @@ namespace MCP_Server.Controllers
                                 .ToArray()
                         }
                     };
-
                     tools.Add(toolDef);
                 }
             }
@@ -112,14 +109,12 @@ namespace MCP_Server.Controllers
                     "double" or "decimal" => "number",
                     _ => "string"
                 };
-
                 props[param.Name] = new
                 {
                     type = jsonType,
                     description = description
                 };
             }
-
             return props;
         }
     }
