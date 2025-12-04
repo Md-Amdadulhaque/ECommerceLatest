@@ -10,8 +10,8 @@ namespace MCP_Server.Services
         private readonly HttpClient _httpClient;
         private readonly IServiceProvider _services;
         private readonly string _apiKey;
-        private readonly string _baseUrl = "https://generativelanguage.googleapis.com/v1beta";
-        private readonly string _model = "gemini-2.0-flash";
+        private readonly string _baseUrl;
+        private readonly string _model;
         public LLMClient(
         HttpClient http,
         IServiceProvider services,
@@ -19,8 +19,9 @@ namespace MCP_Server.Services
         {
             _httpClient = http;
             _services = services;
-            _apiKey = config["Gemini:ApiKey"] ??
-            throw new InvalidOperationException("Gemini API key not configured");
+            _apiKey = config["Gemini:ApiKey"] ??throw new InvalidOperationException("Gemini API key not configured");
+            _baseUrl = config["Gemini:BaseUrl"];
+            _model = config["Gemini:Model"];
         }
         public async Task<LLMResponse>
         ProcessMessageAsync(ChatRequest userRequest, List<object> tools)
