@@ -1,4 +1,7 @@
-﻿using System.Text.Json;
+﻿using System.ComponentModel;
+using System.Reflection;
+using System.Text.Json;
+using ModelContextProtocol.Server;
 using MCP_Server.Models;
 using MCP_Server.Services;
 using Microsoft.AspNetCore.Http;
@@ -13,15 +16,17 @@ namespace MCP_Server.Controllers
     {
         private readonly LLMClient _llmClient;
         private readonly ToolExecutor _toolExecutor;
-        public ChatController(LLMClient llmClient,ToolExecutor toolExecutor)
+
+        public ChatController(LLMClient llmClient, ToolExecutor toolExecutor)
         {
             _llmClient = llmClient;
             _toolExecutor = toolExecutor;
         }
+
         [HttpPost]
         public async Task<ActionResult<ChatResponse>> Chat([FromBody] ChatRequest request)
         {
-            // Define tools Claude can use
+            // Auto-discover tools from [McpServerToolType] classes
             var tools = GetToolDefinitions();
 
             var llmResponse = await _llmClient
@@ -31,8 +36,6 @@ namespace MCP_Server.Controllers
             {
                 var toolName = llmResponse.ToolUse;
                 var toolInput = llmResponse.ToolInput;
-
-                // Step 3: Execute the tool (call Source Project API)
                 var toolResult = await _toolExecutor.ExecuteAsync(toolName, toolInput);
                 return Ok(new ChatResponse
                 {
@@ -40,32 +43,84 @@ namespace MCP_Server.Controllers
                     ToolResult = toolResult?.Result
                 });
             }
+
             return new ChatResponse
             {
                 Reply = "No ToolFound"
             };
         }
+
         private List<object> GetToolDefinitions()
         {
+            var tools = new List<object>();
 
-            return new List<object>
-{
-    new
-    {
-        name = "GetCustomer",
-        description = "Get customer information by User Name and User Email",
-        parameters = new
-        {
-            type = "object",
-            properties = new
+            // Scan all assemblies for types marked with [McpServerToolType]
+            var toolTypes = AppDomain.CurrentDomain.GetAssemblies()
+                .SelectMany(s => s.GetTypes())
+                .Where(p => p.GetCustomAttribute<McpServerToolType>() != null);
+
+            foreach (var toolType in toolTypes)
             {
-                name = new { type = "string", description = "The Customer Name" },
-                email = new { type = "string", description = "The Customer Email" }
-            },
-            required = new[] { "name", "email" }
+                // Find all methods marked with [McpServerTool]
+                var methods = toolType.GetMethods(BindingFlags.Public | BindingFlags.Static)
+                    .Where(m => m.GetCustomAttribute<McpServerTool>() != null);
+
+                foreach (var method in methods)
+                {
+                    var description = method.GetCustomAttribute<Description>()?.Description ?? "No description";
+                    var parameters = method.GetParameters();
+
+                    var toolDef = new
+                    {
+                        name = method.Name,
+                        description = description,
+                        parameters = new
+                        {
+                            type = "object",
+                            properties = BuildParameterProperties(parameters),
+                            required = parameters
+                                .Where(p => !p.HasDefaultValue && p.Name != "client")
+                                .Select(p => p.Name)
+                                .ToArray()
+                        }
+                    };
+
+                    tools.Add(toolDef);
+                }
+            }
+
+            return tools;
         }
-    }
-};
+
+        private Dictionary<string, object> BuildParameterProperties(ParameterInfo[] parameters)
+        {
+            var props = new Dictionary<string, object>();
+
+            foreach (var param in parameters)
+            {
+                // Skip SourceClient parameter
+                if (param.ParameterType.Name == "SourceClient") continue;
+
+                var description = param.GetCustomAttribute<Description>()?.Description ?? param.Name;
+                var typeName = param.ParameterType.Name.ToLower();
+
+                var jsonType = typeName switch
+                {
+                    "int32" or "int64" => "integer",
+                    "string" => "string",
+                    "boolean" => "boolean",
+                    "double" or "decimal" => "number",
+                    _ => "string"
+                };
+
+                props[param.Name] = new
+                {
+                    type = jsonType,
+                    description = description
+                };
+            }
+
+            return props;
         }
     }
 }
