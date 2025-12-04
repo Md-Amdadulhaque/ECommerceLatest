@@ -19,6 +19,7 @@ builder.Services.AddHttpClient<SourceClient>(
     }
     );
 builder.Services.AddScoped<ToolExecutor>();
+builder.Services.AddSingleton<IToolService, ToolService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
