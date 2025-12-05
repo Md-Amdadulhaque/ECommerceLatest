@@ -62,5 +62,20 @@ namespace MCP_Server.Tools
             var result = await client.GetAsync<object>($"/api/product/category/{category}");
             return System.Text.Json.JsonSerializer.Serialize(result);
         }
+
+        [McpServerTool]
+        [Description("Get list of all available product categories")]
+        public static Task<string> GetAllCategories()
+        {
+            var categories = new List<string>
+            {
+                "laptop",
+                "mac",
+                "mobile",
+                "tablet",
+                "accessories"
+            };
+            return Task.FromResult(System.Text.Json.JsonSerializer.Serialize(categories));
+        }
     }
 }
