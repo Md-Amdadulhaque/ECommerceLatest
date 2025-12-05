@@ -12,7 +12,7 @@ public class Product
     public string Name { get; set; } = null!;
     public string Description { get; set; } = null!;
     public int? Price { get; set; } = 0;
-
+    public string Category { get; set; } = null!;
     public string? ImageData { get; set; } = null!;
     public string? ParentId { get; set; }= null!;
 

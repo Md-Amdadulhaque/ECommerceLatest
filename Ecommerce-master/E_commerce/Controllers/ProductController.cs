@@ -56,6 +56,17 @@ namespace E_commerce.Controllers
 
             return NoContent();
         }
+        [HttpGet("category/{category}")]
+        public async Task<List<Product>> GetAllProductByCategory(string category)
+        {
+            var products = await _productService.GetWithByCateGoryAsync(category);
+
+            if (product is null)
+            {
+                return NotFound();
+            }
+            return products;
+        }
 
         [HttpGet("cheapest")]
         public async Task<IActionResult> GetCheapest([FromQuery] int count = 1)

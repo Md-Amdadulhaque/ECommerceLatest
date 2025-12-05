@@ -28,8 +28,13 @@ public class ProductServices:IProductService
         var productPerPage = products.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
         return productPerPage;
     }
-
-
+    
+    public async Task<List<Product>> GetAllProductByCategoryAsync(string category)
+    {
+        var filter = Builders<Product>.Filter.Eq(p => p.Category, category);
+        var products = await _databaseService.GetByFilterAsync(filter);
+        return products;
+    }
     public async Task<Product?> GetWithIdAsync(string id)
     {
         var product = await _databaseService.FindAsync(id);
