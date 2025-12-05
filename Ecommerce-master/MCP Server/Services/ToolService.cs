@@ -19,16 +19,16 @@ namespace MCP_Server.Services
 
             var toolTypes = AppDomain.CurrentDomain.GetAssemblies()
                 .SelectMany(s => s.GetTypes())
-                .Where(p => p.GetCustomAttribute<McpServerToolType>() != null);
+                .Where(p => p.GetCustomAttribute<McpServerToolTypeAttribute>() != null);
 
             foreach (var toolType in toolTypes)
             {
                 var methods = toolType.GetMethods(BindingFlags.Public | BindingFlags.Static)
-                    .Where(m => m.GetCustomAttribute<McpServerTool>() != null);
+                    .Where(m => m.GetCustomAttribute<McpServerToolAttribute>() != null);
 
                 foreach (var method in methods)
                 {
-                    var description = method.GetCustomAttribute<Description>()?.Description ?? "No description";
+                    var description = method.GetCustomAttribute<DescriptionAttribute>()?.Description ?? "No description";
                     var parameters = method.GetParameters();
 
                     var toolDef = new
@@ -57,10 +57,10 @@ namespace MCP_Server.Services
         {
             var props = new Dictionary<string, object>();
 
-            foreach (var param in parameters)
-            {
+                foreach (var param in parameters)
+                {
 
-                var description = param.GetCustomAttribute<Description>()?.Description ?? param.Name;
+                var description = param.GetCustomAttribute<DescriptionAttribute>()?.Description ?? param.Name;
                 var typeName = param.ParameterType.Name.ToLower();
 
                 var jsonType = typeName switch
