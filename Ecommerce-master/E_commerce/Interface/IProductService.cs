@@ -11,6 +11,8 @@ namespace E_commerce.Interface
 
         public Task<Product?> GetWithIdAsync(string id);
 
+        public Task<List<Product>> GetByCategoryAsync(string category);
+
         public Task CreateAsync(Product newProduct);
 
         public Task<List<Product>> GetTopCheapestAsync(int count = 1);

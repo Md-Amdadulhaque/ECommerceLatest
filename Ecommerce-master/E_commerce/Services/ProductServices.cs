@@ -57,6 +57,14 @@ public class ProductServices:IProductService
         return cheapest;
     }
 
+    public async Task<List<Product>> GetByCategoryAsync(string category)
+    {
+        if (string.IsNullOrWhiteSpace(category)) return new List<Product>();
+
+        var filter = Builders<Product>.Filter.Eq(p => p.Category, category);
+        var products = await _databaseService.GetByFilterAsync(filter);
+        return products;
+    }
 
     public async Task UpdateAsync(string id,Product updatedProduct)
     {
