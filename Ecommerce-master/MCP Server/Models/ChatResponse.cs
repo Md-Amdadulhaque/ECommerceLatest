@@ -2,9 +2,9 @@
 {
     public class ChatResponse
     {
-        public string Reply { get; set; } = string.Empty;
+        public string? Reply { get; set; } = string.Empty;
         public string? ConversationId { get; set; }
-        public string? ToolUsed { get; set; }
+        public string? ToolUsed { get; set; } = string.Empty;
         public object? ToolResult { get; set; }
     }
 }

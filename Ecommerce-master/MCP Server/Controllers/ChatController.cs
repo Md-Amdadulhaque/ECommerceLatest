@@ -45,10 +45,10 @@ namespace MCP_Server.Controllers
                     ToolResult = toolResult?.Result
                 });
             }
-            return new ChatResponse
+            return Ok(new ChatResponse
             {
                 Reply = "No ToolFound"
-            };
+            });
         }
     }
 }

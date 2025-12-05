@@ -53,7 +53,6 @@ namespace E_commerce.Controllers
             updatedProduct.Id = product.Id;
 
             await _productService.UpdateAsync(id, updatedProduct);
-
             return NoContent();
         }
         [HttpGet("category/{category}")]

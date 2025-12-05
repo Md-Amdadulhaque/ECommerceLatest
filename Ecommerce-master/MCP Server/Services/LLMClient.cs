@@ -19,9 +19,13 @@ namespace MCP_Server.Services
         {
             _httpClient = http;
             _services = services;
-            _apiKey = config["Gemini:ApiKey"] ??throw new InvalidOperationException("Gemini API key not configured");
-            _baseUrl = config["Gemini:BaseUrl"];
-            _model = config["Gemini:Model"];
+            _apiKey = config["Gemini:ApiKey"] ?? throw new InvalidOperationException("Gemini API key not configured");
+            _baseUrl = config["Gemini:BaseUrl"] ?? throw new InvalidOperationException("Gemini BaseUrl not configured");
+            _model = config["Gemini:Model"] ?? throw new InvalidOperationException("Gemini Model not configured");
+
+            Console.WriteLine($"[LLMClient Init] API Key present: {!string.IsNullOrWhiteSpace(_apiKey)}");
+            Console.WriteLine($"[LLMClient Init] BaseUrl: {_baseUrl}");
+            Console.WriteLine($"[LLMClient Init] Model: {_model}");
         }
         public async Task<LLMResponse> ProcessMessageAsync(ChatRequest userRequest, List<object> tools)
         {
@@ -44,14 +48,22 @@ namespace MCP_Server.Services
             };
 
             var url = $"{_baseUrl}/models/{_model}:generateContent?key={_apiKey}";
-            
+
             // Debug: Log request structure
             var requestJson = JsonSerializer.Serialize(request);
             Console.WriteLine($"[Gemini Request] Tools count: {tools.Count}");
             Console.WriteLine($"[Gemini Request] URL: {url}");
+            Console.WriteLine($"[Gemini Request] Body (first 500 chars): {requestJson.Substring(0, Math.Min(500, requestJson.Length))}");
 
             var response = await _httpClient.PostAsJsonAsync(url, request);
-            response.EnsureSuccessStatusCode();
+
+            if (!response.IsSuccessStatusCode)
+            {
+                var errorContent = await response.Content.ReadAsStringAsync();
+                Console.WriteLine($"[Gemini Error] Status: {response.StatusCode}");
+                Console.WriteLine($"[Gemini Error] Response: {errorContent}");
+                throw new HttpRequestException($"Gemini API returned {response.StatusCode}: {errorContent}");
+            }
 
             var result = await response.Content.ReadFromJsonAsync<JsonElement>();
             return ParseResponse(result);

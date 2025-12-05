@@ -2,6 +2,8 @@
 using MCP_Server.Services;
 using MCP_Server.Models;
 using ModelContextProtocol.Protocol;
+using MCP_Server.Tools;
+using System.Reflection;
 namespace MyMcpServer.Services;
 
 public static class ObjectExtensions
@@ -28,45 +30,67 @@ public class ToolExecutor
     {
         _client = client;
     }
-    
+
     public async Task<ToolResult?> ExecuteAsync(string toolName, JsonElement input)
     {
-            object? result = toolName switch
-            {
-                "GetCustomer" => await GetCustomer(input),
-                "GetCustomerOrders" => await GetCustomerOrders(input),
-                "CreateOrder" => await CreateOrder(input),
-                _ => new { error = $"Unknown tool: {toolName}" }
-            };
-            return result.ToModel<ToolResult>();
-    }
 
-    private async Task<Object> GetCustomer(JsonElement input)
-    {
-        var customerName = input.GetProperty("name").GetString();
-        var customerEmail = input.GetProperty("email").GetString();
-        var result = await _client.GetDataByModelAsync<object>($"/api/GetUserByUser", new
-        {Name = customerName,
-        Email = customerEmail});
-        return JsonSerializer.Serialize(result);
-    }
+        var type = typeof(SourceProjectTools);
+        var method = type.GetMethod(toolName,
+        BindingFlags.Public | BindingFlags.Instance);
 
-    private async Task<string> GetCustomerOrders(JsonElement input)
-    {
-        var customerId = input.GetProperty("customerId").GetString();
-        var result = await _client.GetAsync<object>($"/api/customers/{customerId}/orders");
-        return JsonSerializer.Serialize(result);
-    }
+        if (method == null) throw new Exception("Method not found");
 
-    private async Task<string> CreateOrder(JsonElement input)
-    {
-        var order = new
+
+        var parameters = method.GetParameters();
+        var args = new object?[parameters.Length];
+
+        for (int i = 0; i < parameters.Length; i++)
         {
-            customerId = input.GetProperty("customerId").GetString(),
-            product = input.GetProperty("product").GetString(),
-            quantity = input.GetProperty("quantity").GetInt32()
+            var p = parameters[i];
+
+            if (input.TryGetProperty(p.Name!, out var val))
+            {
+                args[i] = JsonSerializer.Deserialize(val.GetRawText(), p.ParameterType);
+            }
+            else
+            {
+                args[i] = p.HasDefaultValue ? p.DefaultValue : null;
+            }
+        }
+
+
+        var instance = Activator.CreateInstance(type,_client);
+        var invoked = method.Invoke(instance, args);
+
+        object? finalResult;
+
+        if (invoked is Task task)
+        {
+            await task.ConfigureAwait(false);
+
+            // If Task<T>, get Result
+            var taskType = task.GetType();
+            if (taskType.IsGenericType && taskType.GetGenericTypeDefinition() == typeof(Task<object>))
+            {
+                dynamic dynTask = task;
+                finalResult = dynTask.Result;  // this is now List<string>
+            }
+            else
+            {
+                finalResult = null; // Task with no return
+            }
+        }
+        else
+        {
+            // synchronous return
+            finalResult = invoked;
+        }
+
+        return new ToolResult
+        {
+            Result = finalResult
         };
-        var result = await _client.PostAsync<object>("/api/orders", order);
-        return JsonSerializer.Serialize(result);
+
+
     }
 }

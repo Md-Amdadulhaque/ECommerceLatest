@@ -1,4 +1,5 @@
 using MCP_Server.Services;
+using MCP_Server.Tools;
 using MyMcpServer.Services;
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,7 +10,6 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddHttpClient<LLMClient>();
 builder.Services.AddHttpClient<SourceClient>(
     client =>
     {
@@ -18,6 +18,8 @@ builder.Services.AddHttpClient<SourceClient>(
         ?? "http://localhost:5000");
     }
     );
+builder.Services.AddHttpClient<LLMClient>();
+
 builder.Services.AddScoped<ToolExecutor>();
 builder.Services.AddSingleton<IToolService, ToolService>();
 var app = builder.Build();
