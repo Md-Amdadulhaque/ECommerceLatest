@@ -59,13 +59,8 @@ namespace E_commerce.Controllers
         [HttpGet("category/{category}")]
         public async Task<List<Product>> GetAllProductByCategory(string category)
         {
-            var products = await _productService.GetWithByCateGoryAsync(category);
-
-            if (product is null)
-            {
-                return NotFound();
-            }
-            return products;
+            var products = await _productService.GetByCategoryAsync(category);
+            return products??new List<Product>();
         }
 
         [HttpGet("cheapest")]

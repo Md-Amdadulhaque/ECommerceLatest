@@ -20,7 +20,5 @@ namespace E_commerce.Interface
         public Task UpdateAsync(string id, Product product);
     
         public Task RemoveAsync(string id);
-        
-
     }
 }
