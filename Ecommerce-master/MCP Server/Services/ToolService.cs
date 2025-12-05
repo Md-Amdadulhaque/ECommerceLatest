@@ -111,8 +111,8 @@ namespace MCP_Server.Services
         {
             var props = new Dictionary<string, object>();
 
-            foreach (var param in parameters)
-            {
+                foreach (var param in parameters)
+                {
 
                 var description = param.GetCustomAttribute<DescriptionAttribute>()?.Description ?? param.Name;
                 var typeName = param.ParameterType.Name.ToLower();
