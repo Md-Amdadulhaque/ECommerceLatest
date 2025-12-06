@@ -26,9 +26,11 @@ public class ToolExecutor
 {
     private readonly SourceClient _client;
     private readonly JsonSerializerOptions _jsonOptions = new() { WriteIndented = true };
-    public ToolExecutor(SourceClient client)
+    private readonly SourceProjectTools _sourceProjectTools;
+    public ToolExecutor(SourceClient client,SourceProjectTools sourceProjectTools)
     {
         _client = client;
+        _sourceProjectTools = sourceProjectTools;
     }
 
     public async Task<ToolResult?> ExecuteAsync(string toolName, JsonElement input)
@@ -57,40 +59,54 @@ public class ToolExecutor
                 args[i] = p.HasDefaultValue ? p.DefaultValue : null;
             }
         }
-
-
-        var instance = Activator.CreateInstance(type,_client);
-        var invoked = method.Invoke(instance, args);
-
-        object? finalResult;
-
-        if (invoked is Task task)
+        if (args == null)
         {
-            await task.ConfigureAwait(false);
-
-            // If Task<T>, get Result
-            var taskType = task.GetType();
-            if (taskType.IsGenericType && taskType.GetGenericTypeDefinition() == typeof(Task<object>))
-            {
-                dynamic dynTask = task;
-                finalResult = dynTask.Result;  // this is now List<string>
-            }
-            else
-            {
-                finalResult = null; // Task with no return
-            }
+            return new ToolResult();
         }
-        else
+        var now = toolName switch
         {
-            // synchronous return
-            finalResult = invoked;
-        }
-
-        return new ToolResult
-        {
-            Result = finalResult
+            "GetCustomer" => await _sourceProjectTools.GetCustomer(args[0].ToString()),
+            "GetCheapestProducts" => await _sourceProjectTools.GetCheapestProducts(int.Parse(args[0].ToString())),
+            "GetProductsByCategory" => await _sourceProjectTools.GetProductsByCategory(args[0].ToString()),
+            "GetAllCategory" => await _sourceProjectTools.GetAllCategory(),
+            _ => new object()
         };
 
+        ToolResult result = new ToolResult();
+        result.Result = now;
+        return result;
+
+        // var instance = Activator.CreateInstance(type,_client);
+        //var invoked = method.Invoke(instance, args);
+
+        //object? finalResult;
+
+        //if (invoked is Task task)
+        //{
+        //    await task.ConfigureAwait(false);
+
+        //    // If Task<T>, get Result
+        //    var taskType = task.GetType();
+        //    if (taskType.IsGenericType && taskType.GetGenericTypeDefinition() == typeof(Task<object>))
+        //    {
+        //        dynamic dynTask = task;
+        //        finalResult = dynTask.Result;  // this is now List<string>
+        //    }
+        //    else
+        //    {
+        //        finalResult = null; // Task with no return
+        //    }
+        //}
+        //else
+        //{
+        //    // synchronous return
+        //    finalResult = invoked;
+        //}
+
+        //return new ToolResult
+        //{
+        //    Result = finalResult
+        //};
 
     }
 }

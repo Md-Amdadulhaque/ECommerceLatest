@@ -22,6 +22,7 @@ builder.Services.AddHttpClient<LLMClient>();
 
 builder.Services.AddScoped<ToolExecutor>();
 builder.Services.AddSingleton<IToolService, ToolService>();
+builder.Services.AddSingleton<SourceProjectTools>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

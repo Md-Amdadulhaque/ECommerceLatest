@@ -16,7 +16,7 @@ namespace MCP_Server.Tools
         }
         [McpServerTool]
         [Description("Get customer information by ID")]
-        public  async Task<string> GetCustomer(
+        public async Task<string> GetCustomer(
             [Description("The customer ID")] string customerId)
         {
             var result = await _client.GetAsync<object>($"/api/customers/{customerId}");
@@ -69,8 +69,16 @@ namespace MCP_Server.Tools
         }
 
         [McpServerTool]
+        [Description("Get all categori from Api")]
+        public async Task<object?> GetAllCategory()
+        {
+            var result = await _client.GetAsync<object>($"/api/Category");
+            return result;
+        }
+
+        [McpServerTool]
         [Description("Get list of all available product categories")]
-        public Task<string> GetAllCategories()
+        public Task<string> CategoriesList()
         {
             var categories = new List<string>
             {

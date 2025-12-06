@@ -31,6 +31,9 @@ namespace MCP_Server.Controllers
             // Auto-discover tools from ToolService
             var tools = _toolService.GetToolDefinitions();
 
+
+           // var toolResult = await _toolExecutor.ExecuteAsync("GetProductsByCategory", { "Laptop"});
+
             var llmResponse = await _llmClient
                 .ProcessMessageAsync(request, tools);
 
@@ -42,7 +45,8 @@ namespace MCP_Server.Controllers
                 return Ok(new ChatResponse
                 {
                     ToolUsed = toolResult?.ToolUsed,
-                    ToolResult = toolResult?.Result
+                    ToolResult = toolResult?.Result,
+                    Reply = "Found Product"
                 });
             }
             return Ok(new ChatResponse

@@ -126,7 +126,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 7,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Document",
@@ -160,19 +160,6 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "IProductService.cs",
-              "DocumentMoniker": "U:\\Ecommerce-master\\Ecommerce-master\\E_commerce\\Interface\\IProductService.cs",
-              "RelativeDocumentMoniker": "E_commerce\\Interface\\IProductService.cs",
-              "ToolTip": "U:\\Ecommerce-master\\Ecommerce-master\\E_commerce\\Interface\\IProductService.cs",
-              "RelativeToolTip": "E_commerce\\Interface\\IProductService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAaAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-05T10:24:48.185Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 10,
               "Title": "E_commerce.csproj",
               "DocumentMoniker": "U:\\Ecommerce-master\\Ecommerce-master\\E_commerce\\E_commerce.csproj",
@@ -193,8 +180,7 @@
               "RelativeToolTip": "E_commerce\\Controllers\\UserController.cs",
               "ViewState": "AgIAACAAAAAAAAAAAADwvysAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-09T16:14:38.682Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-09T16:14:38.682Z"
             },
             {
               "$type": "Document",
@@ -216,10 +202,22 @@
               "RelativeDocumentMoniker": "E_commerce\\Controllers\\ProductController.cs",
               "ToolTip": "U:\\Ecommerce-master\\Ecommerce-master\\E_commerce\\Controllers\\ProductController.cs",
               "RelativeToolTip": "E_commerce\\Controllers\\ProductController.cs",
-              "ViewState": "AgIAABkAAAAAAAAAAAAUwCEAAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAwwBMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-08-14T11:58:12.752Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "IProductService.cs",
+              "DocumentMoniker": "U:\\Ecommerce-master\\Ecommerce-master\\E_commerce\\Interface\\IProductService.cs",
+              "RelativeDocumentMoniker": "E_commerce\\Interface\\IProductService.cs",
+              "ToolTip": "U:\\Ecommerce-master\\Ecommerce-master\\E_commerce\\Interface\\IProductService.cs",
+              "RelativeToolTip": "E_commerce\\Interface\\IProductService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-05T10:24:48.185Z"
             },
             {
               "$type": "Document",

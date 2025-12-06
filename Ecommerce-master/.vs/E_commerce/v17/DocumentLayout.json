@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "U:\\Ecommerce-master\\Ecommerce-master\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{6EEA7812-E539-4AA2-AD3B-D3141D9C4633}|E_commerce\\E_commerce.csproj|u:\\ecommerce-master\\ecommerce-master\\e_commerce\\controllers\\categorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6EEA7812-E539-4AA2-AD3B-D3141D9C4633}|E_commerce\\E_commerce.csproj|solutionrelative:e_commerce\\controllers\\categorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{6EEA7812-E539-4AA2-AD3B-D3141D9C4633}|E_commerce\\E_commerce.csproj|u:\\ecommerce-master\\ecommerce-master\\e_commerce\\controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6EEA7812-E539-4AA2-AD3B-D3141D9C4633}|E_commerce\\E_commerce.csproj|solutionrelative:e_commerce\\controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -99,10 +103,6 @@
       "RelativeMoniker": "D:0:0:{6EEA7812-E539-4AA2-AD3B-D3141D9C4633}|E_commerce\\E_commerce.csproj|solutionrelative:e_commerce\\interface\\ieventconsumer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6EEA7812-E539-4AA2-AD3B-D3141D9C4633}|E_commerce\\E_commerce.csproj|u:\\ecommerce-master\\ecommerce-master\\e_commerce\\controllers\\categorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6EEA7812-E539-4AA2-AD3B-D3141D9C4633}|E_commerce\\E_commerce.csproj|solutionrelative:e_commerce\\controllers\\categorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{6EEA7812-E539-4AA2-AD3B-D3141D9C4633}|E_commerce\\E_commerce.csproj|u:\\ecommerce-master\\ecommerce-master\\e_commerce\\controllers\\userrolecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6EEA7812-E539-4AA2-AD3B-D3141D9C4633}|E_commerce\\E_commerce.csproj|solutionrelative:e_commerce\\controllers\\userrolecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -126,11 +126,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 7,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "EventPublisher.cs",
               "DocumentMoniker": "U:\\Ecommerce-master\\Ecommerce-master\\E_commerce\\Services\\EventPublisher.cs",
               "RelativeDocumentMoniker": "E_commerce\\Services\\EventPublisher.cs",
@@ -143,7 +143,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 12,
               "Title": "IEventPublisher.cs",
               "DocumentMoniker": "U:\\Ecommerce-master\\Ecommerce-master\\E_commerce\\Interface\\IEventPublisher.cs",
               "RelativeDocumentMoniker": "E_commerce\\Interface\\IEventPublisher.cs",
@@ -160,20 +160,45 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "IProductService.cs",
-              "DocumentMoniker": "U:\\Ecommerce-master\\Ecommerce-master\\E_commerce\\Interface\\IProductService.cs",
-              "RelativeDocumentMoniker": "E_commerce\\Interface\\IProductService.cs",
-              "ToolTip": "U:\\Ecommerce-master\\Ecommerce-master\\E_commerce\\Interface\\IProductService.cs",
-              "RelativeToolTip": "E_commerce\\Interface\\IProductService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAaAAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "CategoryController.cs",
+              "DocumentMoniker": "U:\\Ecommerce-master\\Ecommerce-master\\E_commerce\\Controllers\\CategoryController.cs",
+              "RelativeDocumentMoniker": "E_commerce\\Controllers\\CategoryController.cs",
+              "ToolTip": "U:\\Ecommerce-master\\Ecommerce-master\\E_commerce\\Controllers\\CategoryController.cs",
+              "RelativeToolTip": "E_commerce\\Controllers\\CategoryController.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAAAQAAAAdAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-05T10:24:48.185Z",
+              "WhenOpened": "2025-08-14T11:58:00.487Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 1,
+              "Title": "ProductController.cs",
+              "DocumentMoniker": "U:\\Ecommerce-master\\Ecommerce-master\\E_commerce\\Controllers\\ProductController.cs",
+              "RelativeDocumentMoniker": "E_commerce\\Controllers\\ProductController.cs",
+              "ToolTip": "U:\\Ecommerce-master\\Ecommerce-master\\E_commerce\\Controllers\\ProductController.cs",
+              "RelativeToolTip": "E_commerce\\Controllers\\ProductController.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAwwA0AAAAwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-14T11:58:12.752Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "UserController.cs",
+              "DocumentMoniker": "U:\\Ecommerce-master\\Ecommerce-master\\E_commerce\\Controllers\\UserController.cs",
+              "RelativeDocumentMoniker": "E_commerce\\Controllers\\UserController.cs",
+              "ToolTip": "U:\\Ecommerce-master\\Ecommerce-master\\E_commerce\\Controllers\\UserController.cs",
+              "RelativeToolTip": "E_commerce\\Controllers\\UserController.cs",
+              "ViewState": "AgIAACAAAAAAAAAAAADwvysAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-09T16:14:38.682Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
               "Title": "E_commerce.csproj",
               "DocumentMoniker": "U:\\Ecommerce-master\\Ecommerce-master\\E_commerce\\E_commerce.csproj",
               "RelativeDocumentMoniker": "E_commerce\\E_commerce.csproj",
@@ -185,20 +210,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "UserController.cs",
-              "DocumentMoniker": "U:\\Ecommerce-master\\Ecommerce-master\\E_commerce\\Controllers\\UserController.cs",
-              "RelativeDocumentMoniker": "E_commerce\\Controllers\\UserController.cs",
-              "ToolTip": "U:\\Ecommerce-master\\Ecommerce-master\\E_commerce\\Controllers\\UserController.cs",
-              "RelativeToolTip": "E_commerce\\Controllers\\UserController.cs",
-              "ViewState": "AgIAACAAAAAAAAAAAADwvysAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-09T16:14:38.682Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "User.cs",
               "DocumentMoniker": "U:\\Ecommerce-master\\Ecommerce-master\\E_commerce\\Models\\User.cs",
               "RelativeDocumentMoniker": "E_commerce\\Models\\User.cs",
@@ -210,20 +222,19 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "ProductController.cs",
-              "DocumentMoniker": "U:\\Ecommerce-master\\Ecommerce-master\\E_commerce\\Controllers\\ProductController.cs",
-              "RelativeDocumentMoniker": "E_commerce\\Controllers\\ProductController.cs",
-              "ToolTip": "U:\\Ecommerce-master\\Ecommerce-master\\E_commerce\\Controllers\\ProductController.cs",
-              "RelativeToolTip": "E_commerce\\Controllers\\ProductController.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAwwBMAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 2,
+              "Title": "IProductService.cs",
+              "DocumentMoniker": "U:\\Ecommerce-master\\Ecommerce-master\\E_commerce\\Interface\\IProductService.cs",
+              "RelativeDocumentMoniker": "E_commerce\\Interface\\IProductService.cs",
+              "ToolTip": "U:\\Ecommerce-master\\Ecommerce-master\\E_commerce\\Interface\\IProductService.cs",
+              "RelativeToolTip": "E_commerce\\Interface\\IProductService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-14T11:58:12.752Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-05T10:24:48.185Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 10,
               "Title": "DatabaseService.cs",
               "DocumentMoniker": "U:\\Ecommerce-master\\Ecommerce-master\\E_commerce\\Services\\DatabaseService.cs",
               "RelativeDocumentMoniker": "E_commerce\\Services\\DatabaseService.cs",
@@ -235,7 +246,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "UserService.cs",
               "DocumentMoniker": "U:\\Ecommerce-master\\Ecommerce-master\\E_commerce\\Services\\UserService.cs",
               "RelativeDocumentMoniker": "E_commerce\\Services\\UserService.cs",
@@ -247,7 +258,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "IUserService.cs",
               "DocumentMoniker": "U:\\Ecommerce-master\\Ecommerce-master\\E_commerce\\Interface\\IUserService.cs",
               "RelativeDocumentMoniker": "E_commerce\\Interface\\IUserService.cs",
@@ -259,7 +270,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "E_Commerce_Test.csproj",
               "DocumentMoniker": "U:\\Ecommerce-master\\Ecommerce-master\\E_Commerce_Test\\E_Commerce_Test.csproj",
               "RelativeDocumentMoniker": "E_Commerce_Test\\E_Commerce_Test.csproj",
@@ -271,7 +282,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 9,
               "Title": "CartService.cs",
               "DocumentMoniker": "U:\\Ecommerce-master\\Ecommerce-master\\E_commerce\\Services\\CartService.cs",
               "RelativeDocumentMoniker": "E_commerce\\Services\\CartService.cs",
@@ -295,7 +306,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 15,
               "Title": "OrderController.cs",
               "DocumentMoniker": "U:\\Ecommerce-master\\Ecommerce-master\\E_commerce\\Controllers\\OrderController.cs",
               "RelativeDocumentMoniker": "E_commerce\\Controllers\\OrderController.cs",
@@ -307,7 +318,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 17,
               "Title": "RoleController.cs",
               "DocumentMoniker": "U:\\Ecommerce-master\\Ecommerce-master\\E_commerce\\Controllers\\RoleController.cs",
               "RelativeDocumentMoniker": "E_commerce\\Controllers\\RoleController.cs",
@@ -319,7 +330,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 14,
               "Title": "EventConsumer.cs",
               "DocumentMoniker": "U:\\Ecommerce-master\\Ecommerce-master\\E_commerce\\Services\\EventConsumer.cs",
               "RelativeDocumentMoniker": "E_commerce\\Services\\EventConsumer.cs",
@@ -331,7 +342,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 13,
               "Title": "Program.cs",
               "DocumentMoniker": "U:\\Ecommerce-master\\Ecommerce-master\\E_commerce\\Program.cs",
               "RelativeDocumentMoniker": "E_commerce\\Program.cs",
@@ -343,7 +354,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 16,
               "Title": "EmailController.cs",
               "DocumentMoniker": "U:\\Ecommerce-master\\Ecommerce-master\\E_commerce\\Controllers\\EmailController.cs",
               "RelativeDocumentMoniker": "E_commerce\\Controllers\\EmailController.cs",
@@ -355,7 +366,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 18,
               "Title": "appsettings.json",
               "DocumentMoniker": "U:\\Ecommerce-master\\Ecommerce-master\\E_commerce\\appsettings.json",
               "RelativeDocumentMoniker": "E_commerce\\appsettings.json",
@@ -367,7 +378,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 19,
               "Title": "RabbitMqSettings.cs",
               "DocumentMoniker": "U:\\Ecommerce-master\\Ecommerce-master\\E_commerce\\Models\\RabbitMqSettings.cs",
               "RelativeDocumentMoniker": "E_commerce\\Models\\RabbitMqSettings.cs",
@@ -379,7 +390,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 20,
               "Title": "IEmailConsumerService.cs",
               "DocumentMoniker": "U:\\Ecommerce-master\\Ecommerce-master\\E_commerce\\Interface\\IEmailConsumerService.cs",
               "RelativeDocumentMoniker": "E_commerce\\Interface\\IEmailConsumerService.cs",
@@ -391,7 +402,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 21,
               "Title": "EmailConsumerService.cs",
               "DocumentMoniker": "U:\\Ecommerce-master\\Ecommerce-master\\E_commerce\\Services\\EmailConsumerService.cs",
               "RelativeDocumentMoniker": "E_commerce\\Services\\EmailConsumerService.cs",
@@ -403,7 +414,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 22,
               "Title": "EventModel.cs",
               "DocumentMoniker": "U:\\Ecommerce-master\\Ecommerce-master\\E_commerce\\Models\\EventModel.cs",
               "RelativeDocumentMoniker": "E_commerce\\Models\\EventModel.cs",
@@ -415,7 +426,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 24,
               "Title": "IEventConsumer.cs",
               "DocumentMoniker": "U:\\Ecommerce-master\\Ecommerce-master\\E_commerce\\Interface\\IEventConsumer.cs",
               "RelativeDocumentMoniker": "E_commerce\\Interface\\IEventConsumer.cs",
@@ -427,7 +438,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 23,
               "Title": "Command.cs",
               "DocumentMoniker": "U:\\Ecommerce-master\\Ecommerce-master\\E_commerce\\Models\\Command.cs",
               "RelativeDocumentMoniker": "E_commerce\\Models\\Command.cs",
@@ -436,18 +447,6 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-14T16:10:22.01Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 24,
-              "Title": "CategoryController.cs",
-              "DocumentMoniker": "U:\\Ecommerce-master\\Ecommerce-master\\E_commerce\\Controllers\\CategoryController.cs",
-              "RelativeDocumentMoniker": "E_commerce\\Controllers\\CategoryController.cs",
-              "ToolTip": "U:\\Ecommerce-master\\Ecommerce-master\\E_commerce\\Controllers\\CategoryController.cs",
-              "RelativeToolTip": "E_commerce\\Controllers\\CategoryController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAADcAAAANAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-14T11:58:00.487Z"
             },
             {
               "$type": "Document",
