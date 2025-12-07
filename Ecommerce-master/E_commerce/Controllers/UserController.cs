@@ -20,14 +20,14 @@ namespace E_commerce.Controllers
         public async Task<List<User>> Get() =>
         await _userService.GetAsync();
 
-        [HttpGet("/GetUserByUser")]
+        [HttpGet("GetUserByUser")]
         public async Task<ActionResult<User?>> GetUserAsync([FromQuery] string name, [FromQuery] string email)
         {
             var user = new User { UserName = name, Email = email };
             return Ok(await _userService.GetUserByUserAsync(user));
         }
 
-        [HttpPost("/RegisterUser")]
+        [HttpPost("RegisterUser")]
         public async Task<IActionResult> RegisterUser([FromBody] User user)
         {   
           
@@ -43,7 +43,7 @@ namespace E_commerce.Controllers
             return CreatedAtAction(nameof(Get), new { id = user.Id }, user);
         }
 
-        [HttpPost("/DeleteUser")]
+        [HttpPost("DeleteUser")]
         public async Task DeleteUser([FromBody] User user)
         {
             await _userService.UnRegisterUserAsync(user);

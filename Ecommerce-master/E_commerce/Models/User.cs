@@ -11,6 +11,6 @@ namespace E_commerce.Models
         public string UserName { get; set; } = null!;
         public string Email { get; set; } = string.Empty;
         public string Password { get; set; } = null!;
-        public string Roles { get; set; } = null!;
+        public string? Roles { get; set; } = null!;
     }
 }
