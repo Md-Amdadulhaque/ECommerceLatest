@@ -70,10 +70,9 @@ namespace E_commerce.Controllers
         }
 
         [HttpGet("cheapest")]
-        public async Task<IActionResult> GetCheapest([FromQuery] int count = 1)
+        public async Task<IActionResult> GetCheapest([FromQuery] int count = 5)
         {
             if (count <= 0) return BadRequest("count must be greater than 0");
-
             var products = await _productService.GetTopCheapestAsync(count);
             return Ok(products);
         }
@@ -82,14 +81,11 @@ namespace E_commerce.Controllers
         public async Task<IActionResult> Delete(string id)
         {
             var product = await _productService.GetWithIdAsync(id);
-
             if (product is null)
             {
                 return NotFound();
             }
-
             await _productService.RemoveAsync(id);
-
             return Ok();
         }
     }

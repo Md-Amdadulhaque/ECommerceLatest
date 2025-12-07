@@ -31,8 +31,6 @@ namespace E_commerce.Controllers
         public async Task CreateCartAsync([FromBody] UserID userId)
         {
              await _cartService.CreateCartAsync(userId.Id);
-            
-
         }
 
         [HttpPost("InitiatePayment")]
@@ -61,7 +59,7 @@ namespace E_commerce.Controllers
             await _cartService.AddItemToCartAsync(userId, cartitem);
             return Ok();
         }
-        [HttpDelete("CartItems")]
+        [HttpDelete("CartClear")]
         public async Task DeleteCartItem(string userId)
         {
             await _cartService.DeleteCartAsync(userId);
