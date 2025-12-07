@@ -17,6 +17,13 @@ namespace MCP_Server.Services
             return JsonSerializer.Deserialize<T>(json);
         }
 
+        public async Task<T?> PostAsJsonAsync<T>(string endpoint, JsonContent model)
+        {
+            var response = await _httpClient.PostAsJsonAsync(endpoint, model);
+            var json = await response.Content.ReadAsStringAsync();
+            return JsonSerializer.Deserialize<T>(json);
+        }
+
         public async Task<T?> GetDataByModelAsync<T>(string endpoint,object data)
         {
             var query = string.Join("&", data.GetType().GetProperties()
