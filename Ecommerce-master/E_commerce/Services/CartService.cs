@@ -10,7 +10,7 @@ namespace E_commerce.Services
         public CartService(IDatabaseService<Cart> databaseService)
         {
             _databaseService = databaseService;
-            //_databaseService.SetCollection(nameof(Cart));
+            _databaseService.SetCollection(nameof(Cart));
         }
         public async Task<Cart> GetCartAsync(string userId)
         {
@@ -37,7 +37,7 @@ namespace E_commerce.Services
             var filter = Builders<Cart>.Filter.Eq(c => c.UserId, userId);
 
             var cart = await GetCartAsync(userId);
-            var item = cart.Items.FirstOrDefault(e => e.ProductId == cartItem.ProductId);
+            var item = cart?.Items?.FirstOrDefault(e => e.ProductId == cartItem.ProductId);
             if (item != null)
             {
                 cartItem.Quantity = item.Quantity + 1;

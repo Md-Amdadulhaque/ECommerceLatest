@@ -81,11 +81,19 @@ namespace MCP_Server.Tools
         {
             var categories = new List<string>
             {
-                "laptop",
-                "mac",
-                "mobile",
-                "tablet",
-                "accessories"
+                "Laptop",
+                "Mac",
+                "Mobile",
+                "Tablet",
+                "Accessories",
+                "Books",
+                "Electronics",
+                "Cycle",
+                "Furniture",
+                "Sports",
+                "Toys",
+                "Footwear",
+                "Gaming"
             };
             return Task.FromResult(System.Text.Json.JsonSerializer.Serialize(categories));
         }

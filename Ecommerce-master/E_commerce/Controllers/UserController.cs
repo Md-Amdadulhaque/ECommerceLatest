@@ -53,8 +53,9 @@ namespace E_commerce.Controllers
         public async Task<IActionResult> Login([FromBody] Login login)
         {
             var token = await _userService.GetTokenAsync(login.UserName, login.Password);
+            var userId = await _userService.GetIdByUserAsync(login.UserName);
             if (token == null) return Unauthorized(new { message = "Invalid credentials" });
-            return Ok(token);
+            return Ok( new { token = token, userId = userId });
         }
 
 

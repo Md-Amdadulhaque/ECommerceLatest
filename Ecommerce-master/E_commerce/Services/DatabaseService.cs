@@ -77,7 +77,8 @@ namespace E_commerce.Services
 
         public async Task UpdateAsyncWithFilter(FilterDefinition<T> filter, UpdateDefinition<T> update)
         {
-            await _collection.UpdateOneAsync(filter, update);
+            var options = new UpdateOptions { IsUpsert = true };
+            await _collection.UpdateOneAsync(filter, update,options);
         }
         public async Task<List<T>> GetBySortThenFilterAsync(SortDefinition<T> sort, FilterDefinition<T> filter, int limit=5)
         {

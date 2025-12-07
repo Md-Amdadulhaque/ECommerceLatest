@@ -19,11 +19,11 @@ namespace E_commerce.Controllers
             _productService = productService;
         }
         [HttpPost("GetCart")]
-        public async Task<List<CartItem>> GetCartAsync([FromBody] UserID userId)
+        public async Task<List<CartItem>?> GetCartAsync([FromBody] UserID userId)
         {
             var cart = await _cartService.GetCartAsync(userId.Id);
-            var item = cart.Items;
-            return item;
+            var items = cart?.Items;
+            return items;
 
         }
 
@@ -31,6 +31,8 @@ namespace E_commerce.Controllers
         public async Task CreateCartAsync([FromBody] UserID userId)
         {
              await _cartService.CreateCartAsync(userId.Id);
+            
+
         }
 
         [HttpPost("InitiatePayment")]
