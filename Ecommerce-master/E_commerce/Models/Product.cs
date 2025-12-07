@@ -11,9 +11,12 @@ public class Product
     public string ?Id { get; set; }
     public string Name { get; set; } = null!;
     public string Description { get; set; } = null!;
-    public int? Price { get; set; } = 0;
+    public decimal Price { get; set; } = 0;
     public string Category { get; set; } = null!;
     public string? ImageData { get; set; } = null!;
     public string? ParentId { get; set; }= null!;
+
+    public int NumberOfItemAvaiable = 1;
+    public string? Color { get; set; }
 
 }

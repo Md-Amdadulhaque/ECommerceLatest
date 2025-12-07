@@ -35,6 +35,10 @@ namespace E_commerce.Services
             return await _collection.Find(filter).ToListAsync();
         }
 
+        public async Task<T> GetItemByFilterAsync(FilterDefinition<T> filter)
+        {
+            return await _collection.Find(filter).FirstOrDefaultAsync();
+        }
         public async Task<T> FindAsync(string id)
         {
 
@@ -66,11 +70,16 @@ namespace E_commerce.Services
             await _collection.DeleteOneAsync(Builders<T>.Filter.Eq("Id", id));
         }
 
+        public async Task DeleteAsync(FilterDefinition<T> filter)
+        {
+            await _collection.DeleteOneAsync(filter);
+        }
+
         public async Task UpdateAsyncWithFilter(FilterDefinition<T> filter, UpdateDefinition<T> update)
         {
             await _collection.UpdateOneAsync(filter, update);
         }
-        public async Task<List<T>> GetBySortThenFilterAsync(SortDefinition<T> sort, FilterDefinition<T> filter, int limit)
+        public async Task<List<T>> GetBySortThenFilterAsync(SortDefinition<T> sort, FilterDefinition<T> filter, int limit=5)
         {
             return await _collection.Aggregate()
                 .Sort(sort)

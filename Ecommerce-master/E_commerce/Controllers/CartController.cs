@@ -35,6 +35,12 @@ namespace E_commerce.Controllers
 
         }
 
+        [HttpPost("InitiatePayment")]
+        public async Task InitiatePayment([FromBody] UserID userId)
+        {
+            await _cartService.InitiatePayment(userId.Id);
+        }
+
         [HttpPost("AddToCart")]
         public async Task<IActionResult> AddtoCartAsync([FromBody] AddToCart addToCart)
         {
@@ -49,11 +55,18 @@ namespace E_commerce.Controllers
             var cartitem = new CartItem();
             cartitem.ProductId = product.Id;
             cartitem.ProductName = product.Name;
-            //  cartitem.UnitPrice = product.Price;
+            cartitem.UnitPrice = product.Price;
+            cartitem.ImageUrl = product.ImageData;
 
             await _cartService.AddItemToCartAsync(userId, cartitem);
             return Ok();
         }
+        [HttpDelete("CartItems")]
+        public async Task DeleteCartItem(string userId)
+        {
+            await _cartService.DeleteCartAsync(userId);
+        }
+
 
     }
 }

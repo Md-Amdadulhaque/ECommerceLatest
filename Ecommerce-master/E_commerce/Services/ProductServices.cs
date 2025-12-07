@@ -51,7 +51,7 @@ public class ProductServices:IProductService
         if (count <= 0) return new List<Product>();
 
         var sort = Builders<Product>.Sort.Ascending(p => p.Price);
-        var filter = Builders<Product>.Filter.Ne(p => p.Price, null);
+        var filter = Builders<Product>.Filter.Ne(p => p.Price,0);
 
         var cheapest = await _databaseService.GetBySortThenFilterAsync(sort, filter, count);
         return cheapest;
@@ -74,6 +74,35 @@ public class ProductServices:IProductService
     public async Task RemoveAsync(string id)
     {
         await _databaseService.DeleteAsync(id);
+    }
+
+    public async Task<List<Product>> GetWithFilter(ProductFilterRequest productFilterRequest)
+    {
+        var filterBuilder = Builders<Product>.Filter;
+        var filters = new List<FilterDefinition<Product>>();
+
+        if (!string.IsNullOrEmpty(productFilterRequest.Name))
+            filters.Add(filterBuilder.Eq(p => p.Name, productFilterRequest.Name));
+
+        if (!string.IsNullOrEmpty(productFilterRequest.Category))
+            filters.Add(filterBuilder.Eq(p => p.Category, productFilterRequest.Category));
+
+        if (!string.IsNullOrEmpty(productFilterRequest.Color))
+            filters.Add(filterBuilder.Eq(p => p.Color, productFilterRequest.Color));
+
+        // Handle ranges (these need special logic)
+        if (productFilterRequest.MinPrice.HasValue)
+            filters.Add(filterBuilder.Gte(p => p.Price, productFilterRequest.MinPrice.Value));
+
+        if (productFilterRequest.MaxPrice.HasValue)
+            filters.Add(filterBuilder.Lte(p => p.Price, productFilterRequest.MaxPrice.Value));
+
+        if (productFilterRequest.NumberOfItemAvaiable.HasValue)
+            filters.Add(filterBuilder.Gte(p => p.NumberOfItemAvaiable, productFilterRequest.NumberOfItemAvaiable.Value));
+
+        var combinedFilter = filters.Count > 0 ? filterBuilder.And(filters) : filterBuilder.Empty;
+        var products = await _databaseService.GetByFilterAsync(combinedFilter);
+        return products;
     }
 
 

@@ -8,8 +8,10 @@ namespace E_commerce.Interface
     {
         public Task<Cart> GetCartAsync(string userId);
         public Task CreateCartAsync(string userId);
-
         public Task AddItemToCartAsync(string userId, CartItem cartItem);
+        public Task InitiatePayment(string userId);
+
+        public Task DeleteCartAsync(string userId);
         
     }
 }

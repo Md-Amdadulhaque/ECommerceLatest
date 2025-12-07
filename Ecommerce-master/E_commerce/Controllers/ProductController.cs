@@ -33,6 +33,13 @@ namespace E_commerce.Controllers
             return product;
         }
 
+        [HttpPost("GetByFilterRequestModel")]
+        public async Task<ActionResult<List<Product>>> Get([FromBody] ProductFilterRequest productFilterRequest)
+        {
+            var product = await _productService.GetWithFilter(productFilterRequest);
+            return product;
+        }
+
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] Product newProduct)
         {
