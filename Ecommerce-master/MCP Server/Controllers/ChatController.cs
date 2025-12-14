@@ -48,8 +48,9 @@ namespace MCP_Server.Controllers
                     ToolResult = toolResult?.Result,
                     Reply = "Found Product"
                 });
-              }
-                return Ok(new ChatResponse
+            }
+            
+            return Ok(new ChatResponse
                 {
                     Reply = "No ToolFound"
                 });
