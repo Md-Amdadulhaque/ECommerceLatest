@@ -1,10 +1,5 @@
-﻿using System.ComponentModel;
-using System.Reflection;
-using System.Text.Json;
-using ModelContextProtocol.Server;
-using MCP_Server.Models;
+﻿using MCP_Server.Models;
 using MCP_Server.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MyMcpServer.Services;
 
