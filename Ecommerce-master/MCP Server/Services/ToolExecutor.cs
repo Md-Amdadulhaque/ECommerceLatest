@@ -63,15 +63,23 @@ public class ToolExecutor
         {
             return new ToolResult();
         }
+
+        string[] parameter = new string[args.Length];
+        foreach (var item in args)
+        {
+            if(item==null)continue;
+            parameter.Append(item.ToString());
+        }
+
         var now = toolName switch
         {
-            "GetCustomer" => await _sourceProjectTools.GetCustomer(args[0].ToString()),
-            "GetCheapestProducts" => await _sourceProjectTools.GetCheapestProducts(int.Parse(args[0].ToString())),
-            "GetProductsByCategory" => await _sourceProjectTools.GetProductsByCategory(args[0].ToString()),
+            "GetCustomer" => await _sourceProjectTools.GetCustomer(parameter[0]),
+            "GetCheapestProducts" => await _sourceProjectTools.GetCheapestProducts(int.Parse(parameter[0])),
+            "GetProductsByCategory" => await _sourceProjectTools.GetProductsByCategory(parameter[0]),
             "GetAllCategory" => await _sourceProjectTools.GetAllCategory(),
             "InitaitePayment" => await _sourceProjectTools.InitaitePayment(),
             "ClearCart" => await _sourceProjectTools.ClearCart(),
-            "FilterProducts" => await _sourceProjectTools.FilterProducts(((JsonElement)args[0]).Deserialize<string[]>() ?? Array.Empty<string>()),
+            "FilterProducts" => await _sourceProjectTools.FilterProducts(parameter),
             _ => new object()
         };
 
