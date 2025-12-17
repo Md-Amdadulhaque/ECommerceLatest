@@ -1,9 +1,10 @@
 ﻿using MCP_Server.Helpers;
+using MCP_Server.Services;
 using MCP_Server.Tools;
 using Microsoft.AspNetCore.Mvc;
+using MyMcpServer.Services;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using MCP_Server.Services;
 
 namespace MCP_Server.Controllers
 {
@@ -14,15 +15,18 @@ namespace MCP_Server.Controllers
         private readonly McpToolInvoker _invoker;
         private readonly SourceProjectTools _tools;
         private readonly HttpClient _httpClient;
+        private readonly ToolExecutor _toolExecutor;
+
         private readonly IToolService _toolService;
 
-        public Chatv2Controller(McpToolInvoker invoker, SourceProjectTools tools, IHttpClientFactory httpClientFactory,IToolService toolService)
+        public Chatv2Controller(McpToolInvoker invoker, SourceProjectTools tools, IHttpClientFactory httpClientFactory,IToolService toolService,ToolExecutor toolExecutor)
         {
             _invoker = invoker;
             _tools = tools;
             _httpClient = httpClientFactory.CreateClient();
             _httpClient.BaseAddress = new Uri("http://127.0.0.1:11434/");
             _toolService = toolService;
+            _toolExecutor = toolExecutor;
         }
 
         [HttpPost("query")]
@@ -76,6 +80,8 @@ namespace MCP_Server.Controllers
                 {
                     return StatusCode(500, new { error = "Failed to parse tool call", response = toolJson });
                 }
+
+                var result = _toolExecutor.ExecuteAsync(toolCall.Tool, JsonSerializer.SerializeToElement(toolCall.Parameters));
 
                 // Return structured response
                 return Ok(new
