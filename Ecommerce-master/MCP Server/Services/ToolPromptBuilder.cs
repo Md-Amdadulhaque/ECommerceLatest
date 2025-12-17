@@ -1,18 +1,21 @@
-﻿using MCP_Server.Services;
-using ModelContextProtocol.Protocol;
-using ModelContextProtocol.Server;
-using System.ComponentModel;
-using System.Reflection;
-using System.Text;
-using System.Text.Json;
-using System.Text.RegularExpressions;
-
-namespace MCP_Server.Helpers
+﻿namespace MCP_Server.Helpers
 {
+    using MCP_Server.Services;
+    using System.Text;
+    using System.Text.Json;
+    using System.Text.RegularExpressions;
+
+    /// <summary>
+    /// Defines the <see cref="ToolPromptBuilder" />
+    /// </summary>
     public static class ToolPromptBuilder
     {
-
-
+        /// <summary>
+        /// The BuildPrompt
+        /// </summary>
+        /// <param name="toolService">The toolService<see cref="IToolService"/></param>
+        /// <param name="userQuery">The userQuery<see cref="string"/></param>
+        /// <returns>The <see cref="string"/></returns>
         public static string BuildPrompt(IToolService toolService, string userQuery)
         {
             // Step 1: Get all tools
@@ -23,13 +26,13 @@ namespace MCP_Server.Helpers
             sb.AppendLine("Map the user query to a tool. Return ONLY valid JSON. NO extra text.");
             sb.AppendLine("The JSON format must be:");
             sb.AppendLine(@"
-{
-  ""Tool"": ""<ToolName>"",
-  ""Parameters"": {
-    ""param1"": ""value"",
-    ""param2"": [""value1"", ""value2""]
-  }
-}");
+            {
+            ""Tool"": ""<ToolName>"",
+            ""Parameters"": {
+            ""param1"": ""value"",
+            ""param2"": [""value1"", ""value2""]
+            }}");
+
             sb.AppendLine();
 
             sb.AppendLine("Available tools and parameters:");
@@ -101,7 +104,6 @@ namespace MCP_Server.Helpers
                             string value = $"<value_for_{kvp.Key}>";
                             paramPairs.Add($"\"{kvp.Key}\":\"{value}\"");
                         }
-
                         exampleParams = "{" + string.Join(",", paramPairs) + "}";
                     }
 
@@ -118,11 +120,12 @@ namespace MCP_Server.Helpers
 
             return sb.ToString();
         }
-            
-        
 
-
-
+        /// <summary>
+        /// The CleanJsonResponse
+        /// </summary>
+        /// <param name="response">The response<see cref="string"/></param>
+        /// <returns>The <see cref="string"/></returns>
         public static string CleanJsonResponse(string response)
         {
             if (string.IsNullOrWhiteSpace(response))
@@ -192,8 +195,6 @@ namespace MCP_Server.Helpers
             Console.WriteLine($"[6] ❌ No valid JSON found");
             return null;
         }
-
     }
-
 
 }
