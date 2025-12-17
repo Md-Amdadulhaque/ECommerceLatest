@@ -35,7 +35,7 @@ namespace MCP_Server.Tools
         [McpServerTool]
         [Description("Get products by category (laptop, mac, mobile, etc)")]
         public async Task<object?> GetProductsByCategory(
-            [Description("Category name (e.g., laptop, mac, mobile)")] string category)
+            [Description("Category name (e.g., laptop, mac, mobile) Name spelling will be fixed by another tool exposed below called CategoriesList")] string category)
         {
             var result = await _client.GetAsync<object>($"/api/product/category/{category}");
             return result;
@@ -49,18 +49,8 @@ namespace MCP_Server.Tools
             return result;
         }
 
-
         [McpServerTool]
-        [Description("InitiatePayment")]
-        public async Task<object?> GetProductsByCategory()
-        {
-            var result = await _client.GetAsync<object>($"/api/product/category");
-            return result;
-        }
-
-
-        [McpServerTool]
-        [Description("Get all categori from Api")]
+        [Description("Get all category from Api")]
         public async Task<object?> GetAllCategory()
         {
             var result = await _client.GetAsync<object>($"/api/Category");
@@ -69,14 +59,14 @@ namespace MCP_Server.Tools
 
         [McpServerTool]
         [Description("Clear User Cart")]
-        public async Task<object?> ClearCart(string userName, string email)
+        public async Task<object?> ClearCart()
         {
             var result = await _client.GetAsync<object>($"/api/Category");
             return result;
         }
 
         [McpServerTool]
-        [Description("Get list of all available product categories")]
+        [Description("Get list of all available product categories. Pick Actual Category Spelling From Here Before Initiate a call")]
         public Task<string> CategoriesList()
         {
             var categories = new List<string>

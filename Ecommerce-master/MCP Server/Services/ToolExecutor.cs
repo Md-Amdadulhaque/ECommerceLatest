@@ -69,6 +69,9 @@ public class ToolExecutor
             "GetCheapestProducts" => await _sourceProjectTools.GetCheapestProducts(int.Parse(args[0].ToString())),
             "GetProductsByCategory" => await _sourceProjectTools.GetProductsByCategory(args[0].ToString()),
             "GetAllCategory" => await _sourceProjectTools.GetAllCategory(),
+            "InitaitePayment" => await _sourceProjectTools.InitaitePayment(),
+            "ClearCart" => await _sourceProjectTools.ClearCart(),
+            "FilterProducts" => await _sourceProjectTools.FilterProducts(((JsonElement)args[0]).Deserialize<string[]>() ?? Array.Empty<string>()),
             _ => new object()
         };
 
