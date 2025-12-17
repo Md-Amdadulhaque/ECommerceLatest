@@ -88,7 +88,8 @@ namespace MCP_Server.Controllers
                 {
                     success = true,
                     tool = toolCall.Tool,
-                    parameters = toolCall.Parameters
+                    parameters = toolCall.Parameters,
+                    Result = result
                 });
             }
             catch (JsonException ex)
