@@ -92,12 +92,12 @@ namespace MCP_Server.Tools
         [Description("Filter products using dynamic criteria. Pass filters as 'property:value' pairs.")]
         public async Task<object?> FilterProducts(
         [Description("Array of filter criteria in 'property:value' of my product model property" +
-            " format. Examples: 'category:laptop', 'brand:Dell', 'minPrice:500', 'maxPrice:1500', 'color:Silver'")]
+            " format. Examples: 'Category:laptop', 'Brand:Dell', 'MinPrice:500', 'MaxPrice:1500', 'Color:Silver'")]
         params string[] filters)
         {
             var filterRequest = ParseToFilterRequest(filters);
 
-            var result = await _client.PostAsJsonAsync<object>("/api/product/filter", JsonContent.Create(filterRequest));
+            var result = await _client.PostAsJsonAsync<object>("/api/product/GetByFilterRequestModel", JsonContent.Create(filterRequest));
             
             return result;
         }
