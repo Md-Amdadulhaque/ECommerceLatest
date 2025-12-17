@@ -16,11 +16,11 @@ namespace MCP_Server.Tools
         }
         [McpServerTool]
         [Description("Get customer information by ID")]
-        public async Task<string> GetCustomer(
+        public async Task<object?> GetCustomer(
             [Description("The customer ID")] string customerId)
         {
             var result = await _client.GetAsync<object>($"/api/customers/{customerId}");
-            return System.Text.Json.JsonSerializer.Serialize(result);
+            return result;
         }
 
         [McpServerTool]
@@ -29,7 +29,7 @@ namespace MCP_Server.Tools
             [Description("Number of cheapest products to return")] int count = 5)
         {
             var result = await _client.GetAsync<object>($"/api/product/cheapest?count={count}");
-            return System.Text.Json.JsonSerializer.Serialize(result);
+            return result;
         }
 
         [McpServerTool]
