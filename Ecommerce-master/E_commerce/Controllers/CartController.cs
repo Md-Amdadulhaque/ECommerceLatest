@@ -61,7 +61,7 @@ namespace E_commerce.Controllers
             await _cartService.AddItemToCartAsync(userId, cartitem);
             return Ok();
         }
-        [HttpDelete("CartClear")]
+        [HttpGet("CartClear/{userId}")]
         public async Task DeleteCartItem(string userId)
         {
             await _cartService.DeleteCartAsync(userId);
