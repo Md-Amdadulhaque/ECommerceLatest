@@ -14,7 +14,7 @@ Key Features
 
 🔁 RabbitMQ for event-driven and cross-service communication
 
-🤖 MCP server integration for LLM tool exposure
+🤖 MCP server integration for LLM tool exposure (Both for Gemini and LLama 2.0)
 
 ⚙️ ASP.NET backend written in C#
 
