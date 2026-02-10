@@ -1,10 +1,5 @@
-﻿using System.ComponentModel;
-using System.Reflection;
-using System.Text.Json;
-using ModelContextProtocol.Server;
-using MCP_Server.Models;
+﻿using MCP_Server.Models;
 using MCP_Server.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MyMcpServer.Services;
 using MCP_Server.Tools;
@@ -56,8 +51,9 @@ namespace MCP_Server.Controllers
                     ToolResult = toolResult?.Result,
                     Reply = "Found Product"
                 });
-              }
-                return Ok(new ChatResponse
+            }
+            
+            return Ok(new ChatResponse
                 {
                     Reply = "No ToolFound"
                 });

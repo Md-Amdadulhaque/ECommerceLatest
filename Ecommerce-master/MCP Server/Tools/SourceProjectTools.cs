@@ -16,11 +16,11 @@ namespace MCP_Server.Tools
         }
         [McpServerTool]
         [Description("Get customer information by ID")]
-        public async Task<string> GetCustomer(
+        public async Task<object?> GetCustomer(
             [Description("The customer ID")] string customerId)
         {
             var result = await _client.GetAsync<object>($"/api/customers/{customerId}");
-            return System.Text.Json.JsonSerializer.Serialize(result);
+            return result;
         }
 
         [McpServerTool]
@@ -29,13 +29,13 @@ namespace MCP_Server.Tools
             [Description("Number of cheapest products to return")] int count = 5)
         {
             var result = await _client.GetAsync<object>($"/api/product/cheapest?count={count}");
-            return System.Text.Json.JsonSerializer.Serialize(result);
+            return result;
         }
 
         [McpServerTool]
         [Description("Get products by category (laptop, mac, mobile, etc)")]
         public async Task<object?> GetProductsByCategory(
-            [Description("Category name (e.g., laptop, mac, mobile)")] string category)
+            [Description("Category name (e.g., laptop, mac, mobile) Name spelling will be fixed by another tool exposed below called CategoriesList")] string category)
         {
             var result = await _client.GetAsync<object>($"/api/product/category/{category}");
             return result;
@@ -45,22 +45,12 @@ namespace MCP_Server.Tools
         [Description("InitiatePayment")]
         public async Task<object?> InitaitePayment()
         {
-            var result = await _client.GetAsync<object>($"/api/product/category");
+            var result = await _client.GetAsync<object>($"/api/Cart/InitiatePayment");
             return result;
         }
 
-
         [McpServerTool]
-        [Description("InitiatePayment")]
-        public async Task<object?> GetProductsByCategory()
-        {
-            var result = await _client.GetAsync<object>($"/api/product/category");
-            return result;
-        }
-
-
-        [McpServerTool]
-        [Description("Get all categori from Api")]
+        [Description("Get all category from Api")]
         public async Task<object?> GetAllCategory()
         {
             var result = await _client.GetAsync<object>($"/api/Category");
@@ -69,14 +59,14 @@ namespace MCP_Server.Tools
 
         [McpServerTool]
         [Description("Clear User Cart")]
-        public async Task<object?> ClearCart(string userName, string email)
+        public async Task<object?> ClearCart(string userId)
         {
-            var result = await _client.GetAsync<object>($"/api/Category");
+            var result = await _client.GetAsync<object>($"/api/Cart/CartClear/{userId}");
             return result;
         }
 
         [McpServerTool]
-        [Description("Get list of all available product categories")]
+        [Description("Get list of all available product categories. Pick Actual Category Spelling From Here Before Initiate a call")]
         public Task<string> CategoriesList()
         {
             var categories = new List<string>
@@ -102,12 +92,12 @@ namespace MCP_Server.Tools
         [Description("Filter products using dynamic criteria. Pass filters as 'property:value' pairs.")]
         public async Task<object?> FilterProducts(
         [Description("Array of filter criteria in 'property:value' of my product model property" +
-            " format. Examples: 'category:laptop', 'brand:Dell', 'minPrice:500', 'maxPrice:1500', 'color:Silver'")]
+            " format. Examples: 'Category:laptop', 'Brand:Dell', 'MinPrice:500', 'MaxPrice:1500', 'Color:Silver'")]
         params string[] filters)
         {
             var filterRequest = ParseToFilterRequest(filters);
 
-            var result = await _client.PostAsJsonAsync<object>("/api/product/filter", JsonContent.Create(filterRequest));
+            var result = await _client.PostAsJsonAsync<object>("/api/product/GetByFilterRequestModel", JsonContent.Create(filterRequest));
             
             return result;
         }

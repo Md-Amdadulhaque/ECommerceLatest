@@ -1,3 +1,4 @@
+using MCP_Server.Helpers;
 using MCP_Server.Services;
 using MCP_Server.Tools;
 using MyMcpServer.Services;
@@ -29,10 +30,10 @@ builder.Services.AddHttpClient<SourceClient>(
     }
     );
 builder.Services.AddHttpClient<LLMClient>();
-
 builder.Services.AddScoped<ToolExecutor>();
 builder.Services.AddSingleton<IToolService, ToolService>();
 builder.Services.AddSingleton<SourceProjectTools>();
+builder.Services.AddSingleton<McpToolInvoker>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

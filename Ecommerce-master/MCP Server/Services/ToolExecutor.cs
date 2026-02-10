@@ -63,50 +63,22 @@ public class ToolExecutor
         {
             return new ToolResult();
         }
+
         var now = toolName switch
         {
             "GetCustomer" => await _sourceProjectTools.GetCustomer(args[0].ToString()),
-            "GetCheapestProducts" => await _sourceProjectTools.GetCheapestProducts(int.Parse(args[0].ToString())),
-            "GetProductsByCategory" => await _sourceProjectTools.GetProductsByCategory(args[0].ToString()),
+            //"GetCheapestProducts" => await _sourceProjectTools.GetCheapestProducts(int.Parse(args[0].ToString())),
+            //"GetProductsByCategory" => await _sourceProjectTools.GetProductsByCategory(args[0].ToString()),
             "GetAllCategory" => await _sourceProjectTools.GetAllCategory(),
+            "InitaitePayment" => await _sourceProjectTools.InitaitePayment(),
+            "ClearCart" => await _sourceProjectTools.ClearCart(args[0].ToString()),
+            "FilterProducts" => await _sourceProjectTools.FilterProducts((string[])args[0]!),
             _ => new object()
         };
 
         ToolResult result = new ToolResult();
         result.Result = now;
         return result;
-
-        // var instance = Activator.CreateInstance(type,_client);
-        //var invoked = method.Invoke(instance, args);
-
-        //object? finalResult;
-
-        //if (invoked is Task task)
-        //{
-        //    await task.ConfigureAwait(false);
-
-        //    // If Task<T>, get Result
-        //    var taskType = task.GetType();
-        //    if (taskType.IsGenericType && taskType.GetGenericTypeDefinition() == typeof(Task<object>))
-        //    {
-        //        dynamic dynTask = task;
-        //        finalResult = dynTask.Result;  // this is now List<string>
-        //    }
-        //    else
-        //    {
-        //        finalResult = null; // Task with no return
-        //    }
-        //}
-        //else
-        //{
-        //    // synchronous return
-        //    finalResult = invoked;
-        //}
-
-        //return new ToolResult
-        //{
-        //    Result = finalResult
-        //};
 
     }
 }
