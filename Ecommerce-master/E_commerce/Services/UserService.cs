@@ -61,6 +61,13 @@ namespace E_commerce.Services
             await _databaseService.DeleteAsync(user?.Id);
         }
 
+        public async Task<User?> GetUserByIdAsync(string userId)
+        {
+            var filter = Builders<User>.Filter.Eq(u => u.Id, userId);
+            var user = await _databaseService.GetItemByFilterAsync(filter);
+            return user;
+        }
+
         public async Task<string> GetTokenAsync(string userName, string password)
         {
             var user = await _databaseService.FindAsync(userName, password);

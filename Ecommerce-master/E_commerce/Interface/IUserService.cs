@@ -18,6 +18,7 @@ namespace E_commerce.Interface
 
         public Task<User?> GetUserByUserAsync(User user);
 
+        public Task<User?> GetUserByIdAsync(string userId);
 
 
     }

@@ -74,7 +74,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
@@ -87,8 +87,11 @@
               "ViewState": "AgIAAKAAAAAAAAAAAADwv9wAAAAOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-11-22T04:50:33.031Z",
-              "IsPinned": true,
-              "EditorCaption": ""
+              "IsPinned": true
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
             },
             {
               "$type": "Bookmark",
@@ -102,7 +105,7 @@
               "RelativeDocumentMoniker": "Services\\LLMClient.cs",
               "ToolTip": "U:\\Ecommerce-master\\Ecommerce-master\\MCP Server\\Services\\LLMClient.cs",
               "RelativeToolTip": "Services\\LLMClient.cs",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAwwB8AAAA+AAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB8AAAA+AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-11-21T05:48:56.44Z",
               "EditorCaption": ""
@@ -117,8 +120,7 @@
               "RelativeToolTip": "Services\\ToolPromptBuilder.cs",
               "ViewState": "AgIAAAMAAAAAAAAAAAAAABcAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-08T17:13:57.353Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-08T17:13:57.353Z"
             },
             {
               "$type": "Document",
@@ -130,8 +132,7 @@
               "RelativeToolTip": "Controllers\\ChatController.cs",
               "ViewState": "AgIAABMAAAAAAAAAAADwvygAAABAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-22T05:08:41.544Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-22T05:08:41.544Z"
             },
             {
               "$type": "Document",
@@ -179,8 +180,7 @@
               "RelativeToolTip": "Models\\ChatRequest.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAuwAIAAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-21T05:46:08.683Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-21T05:46:08.683Z"
             },
             {
               "$type": "Document",
@@ -192,8 +192,7 @@
               "RelativeToolTip": "appsettings.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-11-21T05:36:26.756Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-21T05:36:26.756Z"
             },
             {
               "$type": "Document",

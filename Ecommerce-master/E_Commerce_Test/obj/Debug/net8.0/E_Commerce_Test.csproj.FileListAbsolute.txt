@@ -200,10 +200,3 @@
 /workspaces/ECommerceLatest/Ecommerce-master/E_Commerce_Test/obj/Debug/net8.0/E_Commerce_Test.pdb
 /workspaces/ECommerceLatest/Ecommerce-master/E_Commerce_Test/obj/Debug/net8.0/E_Commerce_Test.genruntimeconfig.cache
 /workspaces/ECommerceLatest/Ecommerce-master/E_Commerce_Test/obj/Debug/net8.0/ref/E_Commerce_Test.dll
-U:\Ecommerce-master\Ecommerce-master\E_Commerce_Test\bin\Debug\net8.0\CoverletSourceRootsMapping_E_Commerce_Test
-U:\Ecommerce-master\Ecommerce-master\E_Commerce_Test\obj\Debug\net8.0\E_Commerce_Test.csproj.AssemblyReference.cache
-U:\Ecommerce-master\Ecommerce-master\E_Commerce_Test\obj\Debug\net8.0\E_Commerce_Test.GeneratedMSBuildEditorConfig.editorconfig
-U:\Ecommerce-master\Ecommerce-master\E_Commerce_Test\obj\Debug\net8.0\E_Commerce_Test.AssemblyInfoInputs.cache
-U:\Ecommerce-master\Ecommerce-master\E_Commerce_Test\obj\Debug\net8.0\E_Commerce_Test.AssemblyInfo.cs
-U:\Ecommerce-master\Ecommerce-master\E_Commerce_Test\obj\Debug\net8.0\E_Commerce_Test.csproj.CoreCompileInputs.cache
-U:\Ecommerce-master\Ecommerce-master\E_Commerce_Test\obj\Debug\net8.0\E_Commerce_Test.sourcelink.json

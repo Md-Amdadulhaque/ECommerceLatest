@@ -27,6 +27,12 @@ namespace E_commerce.Controllers
             return Ok(await _userService.GetUserByUserAsync(user));
         }
 
+        [HttpGet("GetUserById")]
+        public async Task<ActionResult<User?>> GetUserByIdAsync([FromQuery] string userId)
+        {
+            return Ok(await _userService.GetUserByIdAsync(userId));
+        }
+
         [HttpPost("RegisterUser")]
         public async Task<IActionResult> RegisterUser([FromBody] User user)
         {   
