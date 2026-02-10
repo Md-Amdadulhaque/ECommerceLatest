@@ -7,6 +7,9 @@ using MCP_Server.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MyMcpServer.Services;
+using MCP_Server.Tools;
+using ModelContextProtocol.Protocol;
+using System.Net.Http;
 
 namespace MCP_Server.Controllers
 {
@@ -17,25 +20,30 @@ namespace MCP_Server.Controllers
         private readonly LLMClient _llmClient;
         private readonly ToolExecutor _toolExecutor;
         private readonly IToolService _toolService;
-
-        public ChatController(LLMClient llmClient, ToolExecutor toolExecutor, IToolService toolService)
+        private readonly SourceProjectTools _sourceProjectTools;
+        public ChatController(LLMClient llmClient, ToolExecutor toolExecutor, IToolService toolService,SourceProjectTools sourceProjectTools)
         {
             _llmClient = llmClient;
             _toolExecutor = toolExecutor;
             _toolService = toolService;
+            _sourceProjectTools = sourceProjectTools;
         }
 
         [HttpPost]
         public async Task<ActionResult<ChatResponse>> Chat([FromBody] ChatRequest request)
         {
             // Auto-discover tools from ToolService
-            var tools = _toolService.GetToolDefinitions();
+
+            string prompt = ToolPromptBuilder.BuildPrompt(_sourceProjectTools, request);
+
+            // var toolResult = await _toolExecutor.ExecuteAsync("GetProductsByCategory", { "Laptop"});
+
+              var llmResponse = await _llmClient.PostAsJsonAsync(prompt);
 
 
-           // var toolResult = await _toolExecutor.ExecuteAsync("GetProductsByCategory", { "Laptop"});
+            if (!llmResponseMsg.IsSuccessStatusCode)
+                return StatusCode(500, new { error = "LLM API error" });
 
-            var llmResponse = await _llmClient
-                .ProcessMessageAsync(request, tools);
 
             if (llmResponse.ToolUse != null)
             {

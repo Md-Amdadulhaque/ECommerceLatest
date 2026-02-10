@@ -1,10 +1,8 @@
 using E_commerce.Models;
-using Microsoft.AspNetCore.Authorization;
 using E_commerce.Services;
 using E_commerce.Interface;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 
 namespace E_commerce
@@ -75,7 +73,7 @@ namespace E_commerce
                 return Task.CompletedTask;
             }
         };
-    });
+        });
 
             builder.Services.AddAuthorization();
 

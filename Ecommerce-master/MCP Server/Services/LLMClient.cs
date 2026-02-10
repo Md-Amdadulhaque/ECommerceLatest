@@ -1,6 +1,8 @@
-﻿using System.Text.Json;
+﻿using System.Net.Http;
+using System.Text.Json;
 using System.Xml.Linq;
 using MCP_Server.Models;
+using ModelContextProtocol.Protocol;
 using static System.Net.WebRequestMethods;
 
 namespace MCP_Server.Services
@@ -12,50 +14,15 @@ namespace MCP_Server.Services
         private readonly string _apiKey;
         private readonly string _baseUrl;
         private readonly string _model;
-        public LLMClient(
-        HttpClient http,
-        IServiceProvider services,
-        IConfiguration config)
+        public LLMClient(IHttpClientFactory httpClientFactory)
         {
-            _httpClient = http;
-            _services = services;
-            _apiKey = config["Gemini:ApiKey"] ?? throw new InvalidOperationException("Gemini API key not configured");
-            _baseUrl = config["Gemini:BaseUrl"] ?? throw new InvalidOperationException("Gemini BaseUrl not configured");
-            _model = config["Gemini:Model"] ?? throw new InvalidOperationException("Gemini Model not configured");
-
-            Console.WriteLine($"[LLMClient Init] API Key present: {!string.IsNullOrWhiteSpace(_apiKey)}");
-            Console.WriteLine($"[LLMClient Init] BaseUrl: {_baseUrl}");
-            Console.WriteLine($"[LLMClient Init] Model: {_model}");
+            _httpClient = httpClientFactory.CreateClient();
+            _httpClient.BaseAddress = new Uri("http://127.0.0.1:5000"); // Ollama local API
         }
-        public async Task<LLMResponse> ProcessMessageAsync(ChatRequest userRequest, List<object> tools)
+        public async Task<LLMResponse> PostAsJsonAsync(string userPromt)
         {
-            var fullMessage = $"User Name: {userRequest.Name}\nUser Email: {userRequest.Email}\n\nRequest: {userRequest.Message}";
 
-            var request = new
-            {
-                contents = new[]
-                {
-                    new
-                    {
-                        role = "user",
-                        parts = new[] { new { text = fullMessage } }
-                    }
-                },
-                tools = new[]
-                {
-                    new { functionDeclarations = tools }
-                }
-            };
-
-            var url = $"{_baseUrl}/models/{_model}:generateContent?key={_apiKey}";
-
-            // Debug: Log request structure
-            var requestJson = JsonSerializer.Serialize(request);
-            Console.WriteLine($"[Gemini Request] Tools count: {tools.Count}");
-            Console.WriteLine($"[Gemini Request] URL: {url}");
-            Console.WriteLine($"[Gemini Request] Body (first 500 chars): {requestJson.Substring(0, Math.Min(500, requestJson.Length))}");
-
-            var response = await _httpClient.PostAsJsonAsync(url, request);
+            var llmResponse = await _httpClient.PostAsJsonAsync("/predict", new { UserQuery = request.UserQuery });
 
             if (!response.IsSuccessStatusCode)
             {

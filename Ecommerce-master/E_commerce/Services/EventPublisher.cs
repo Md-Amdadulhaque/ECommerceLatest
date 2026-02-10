@@ -7,7 +7,6 @@ using RabbitMQ.Client;
 
 namespace E_commerce.Services
 {
-   // [s]
     public class EventPublisher : IEventPublisher
     {
         private readonly RabbitMqSettings _settings;

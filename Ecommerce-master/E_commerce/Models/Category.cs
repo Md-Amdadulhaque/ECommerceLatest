@@ -5,7 +5,6 @@ using MongoDB.Bson.Serialization.Attributes;
 namespace E_commerce.Models
 {
     [BsonIgnoreExtraElements]
-
     public class Category
     {
         [BsonId]

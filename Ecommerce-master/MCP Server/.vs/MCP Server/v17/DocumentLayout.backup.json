@@ -15,12 +15,16 @@
       "RelativeMoniker": "D:0:0:{04C0D4F5-C485-40CD-989B-0D18903E792C}|MCP Server.csproj|solutionrelative:controllers\\chatcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{04C0D4F5-C485-40CD-989B-0D18903E792C}|MCP Server.csproj|u:\\ecommerce-master\\ecommerce-master\\mcp server\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{04C0D4F5-C485-40CD-989B-0D18903E792C}|MCP Server.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{04C0D4F5-C485-40CD-989B-0D18903E792C}|MCP Server.csproj|u:\\ecommerce-master\\ecommerce-master\\mcp server\\tools\\sourceprojecttools.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{04C0D4F5-C485-40CD-989B-0D18903E792C}|MCP Server.csproj|solutionrelative:tools\\sourceprojecttools.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{04C0D4F5-C485-40CD-989B-0D18903E792C}|MCP Server.csproj|u:\\ecommerce-master\\ecommerce-master\\mcp server\\services\\toolexecutor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{04C0D4F5-C485-40CD-989B-0D18903E792C}|MCP Server.csproj|solutionrelative:services\\toolexecutor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{04C0D4F5-C485-40CD-989B-0D18903E792C}|MCP Server.csproj|u:\\ecommerce-master\\ecommerce-master\\mcp server\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{04C0D4F5-C485-40CD-989B-0D18903E792C}|MCP Server.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{04C0D4F5-C485-40CD-989B-0D18903E792C}|MCP Server.csproj|u:\\ecommerce-master\\ecommerce-master\\mcp server\\models\\chatrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -29,10 +33,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{04C0D4F5-C485-40CD-989B-0D18903E792C}|MCP Server.csproj|u:\\ecommerce-master\\ecommerce-master\\mcp server\\services\\sourceclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{04C0D4F5-C485-40CD-989B-0D18903E792C}|MCP Server.csproj|solutionrelative:services\\sourceclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{04C0D4F5-C485-40CD-989B-0D18903E792C}|MCP Server.csproj|u:\\ecommerce-master\\ecommerce-master\\mcp server\\services\\toolexecutor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{04C0D4F5-C485-40CD-989B-0D18903E792C}|MCP Server.csproj|solutionrelative:services\\toolexecutor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{04C0D4F5-C485-40CD-989B-0D18903E792C}|MCP Server.csproj|u:\\ecommerce-master\\ecommerce-master\\mcp server\\models\\chatresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -70,17 +70,17 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 9,
+          "SelectedChildIndex": 8,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 3,
               "Title": "SourceProjectTools.cs",
               "DocumentMoniker": "U:\\Ecommerce-master\\Ecommerce-master\\MCP Server\\Tools\\SourceProjectTools.cs",
               "RelativeDocumentMoniker": "Tools\\SourceProjectTools.cs",
               "ToolTip": "U:\\Ecommerce-master\\Ecommerce-master\\MCP Server\\Tools\\SourceProjectTools.cs",
               "RelativeToolTip": "Tools\\SourceProjectTools.cs",
-              "ViewState": "AgIAAJ8AAAAAAAAAAAAowD4AAAAyAAAAAAAAAA==",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAkwDYAAAA4AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-11-22T04:50:33.031Z",
               "IsPinned": true,
@@ -98,26 +98,14 @@
               "RelativeDocumentMoniker": "Controllers\\ChatController.cs",
               "ToolTip": "U:\\Ecommerce-master\\Ecommerce-master\\MCP Server\\Controllers\\ChatController.cs",
               "RelativeToolTip": "Controllers\\ChatController.cs",
-              "ViewState": "AgIAAA4AAAAAAAAAAIA3wCkAAAAQAAAAAAAAAA==",
+              "ViewState": "AgIAAB4AAAAAAAAAAAApwCUAAAAkAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-11-22T05:08:41.544Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "ChatResponse.cs",
-              "DocumentMoniker": "U:\\Ecommerce-master\\Ecommerce-master\\MCP Server\\Models\\ChatResponse.cs",
-              "RelativeDocumentMoniker": "Models\\ChatResponse.cs",
-              "ToolTip": "U:\\Ecommerce-master\\Ecommerce-master\\MCP Server\\Models\\ChatResponse.cs",
-              "RelativeToolTip": "Models\\ChatResponse.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAYAAAA9AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-21T05:46:22.262Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 5,
               "Title": "Program.cs",
               "DocumentMoniker": "U:\\Ecommerce-master\\Ecommerce-master\\MCP Server\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
@@ -160,14 +148,14 @@
               "RelativeDocumentMoniker": "Services\\LLMClient.cs",
               "ToolTip": "U:\\Ecommerce-master\\Ecommerce-master\\MCP Server\\Services\\LLMClient.cs",
               "RelativeToolTip": "Services\\LLMClient.cs",
-              "ViewState": "AgIAACkAAAAAAAAAAAApwD8AAAAQAAAAAAAAAA==",
+              "ViewState": "AgIAAB0AAAAAAAAAAIA7wDgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-11-21T05:48:56.44Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "ChatRequest.cs",
               "DocumentMoniker": "U:\\Ecommerce-master\\Ecommerce-master\\MCP Server\\Models\\ChatRequest.cs",
               "RelativeDocumentMoniker": "Models\\ChatRequest.cs",
@@ -186,22 +174,35 @@
               "RelativeDocumentMoniker": "appsettings.json",
               "ToolTip": "U:\\Ecommerce-master\\Ecommerce-master\\MCP Server\\appsettings.json",
               "RelativeToolTip": "appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAA6AAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
               "WhenOpened": "2025-11-21T05:36:26.756Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 4,
               "Title": "ToolExecutor.cs",
               "DocumentMoniker": "U:\\Ecommerce-master\\Ecommerce-master\\MCP Server\\Services\\ToolExecutor.cs",
               "RelativeDocumentMoniker": "Services\\ToolExecutor.cs",
               "ToolTip": "U:\\Ecommerce-master\\Ecommerce-master\\MCP Server\\Services\\ToolExecutor.cs",
               "RelativeToolTip": "Services\\ToolExecutor.cs",
-              "ViewState": "AgIAAFcAAAAAAAAAAAAhwEsAAAAcAAAAAAAAAA==",
+              "ViewState": "AgIAACoAAAAAAAAAAAApwEsAAAAcAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-22T05:29:45.761Z"
+              "WhenOpened": "2025-11-22T05:29:45.761Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "ChatResponse.cs",
+              "DocumentMoniker": "U:\\Ecommerce-master\\Ecommerce-master\\MCP Server\\Models\\ChatResponse.cs",
+              "RelativeDocumentMoniker": "Models\\ChatResponse.cs",
+              "ToolTip": "U:\\Ecommerce-master\\Ecommerce-master\\MCP Server\\Models\\ChatResponse.cs",
+              "RelativeToolTip": "Models\\ChatResponse.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAYAAAA9AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-21T05:46:22.262Z"
             },
             {
               "$type": "Document",
@@ -217,7 +218,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "SourceClient.cs",
               "DocumentMoniker": "U:\\Ecommerce-master\\Ecommerce-master\\MCP Server\\Services\\SourceClient.cs",
               "RelativeDocumentMoniker": "Services\\SourceClient.cs",
