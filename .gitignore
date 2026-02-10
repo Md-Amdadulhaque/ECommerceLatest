@@ -426,3 +426,4 @@ FodyWeavers.xsd
 *.msix
 *.msm
 *.msp
+/Ecommerce-master/.vs/E_commerce/v17/DocumentLayout.json
