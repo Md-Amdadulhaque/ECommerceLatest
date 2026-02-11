@@ -23,10 +23,7 @@ public class ProductServices:IProductService
 
     public async Task<List<Product>> GetAsync(int pageNumber,int pageSize)
     {
-        var products = await _databaseService.GetAllAsync();
-        int total = products.Count;
-        var productPerPage = products.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
-        return productPerPage;
+        return await _databaseService.GetPagedBaseItems(pageNumber, pageSize);
     }
     
     public async Task<List<Product>> GetAllProductByCategoryAsync(string category)

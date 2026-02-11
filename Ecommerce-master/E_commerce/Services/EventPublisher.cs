@@ -51,7 +51,6 @@ namespace E_commerce.Services
             }
             finally
             {
-                // Return channel to pool
                 _channelPool.Add(channel);
             }
             

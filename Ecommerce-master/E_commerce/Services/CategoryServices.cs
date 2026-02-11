@@ -1,22 +1,16 @@
 ﻿using E_commerce.Interface;
 using E_commerce.Models;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
-using MongoDB.Driver;
 
 namespace E_commerce.Services
 {
     public class CategoryServices:ICategoryService
     {
         private  IDatabaseService<Category> _databaseService;
-
-
         public CategoryServices(IDatabaseService<Category> databaseService)
         {
             _databaseService = databaseService;
             _databaseService.SetCollection(nameof(Category));
-        }
+        } 
 
         public async Task<List<Category>> GetAsync()
         {
@@ -26,10 +20,7 @@ namespace E_commerce.Services
 
         public async Task<List<Category>> GetAsync(int pageNumber, int pageSize)
         {
-            var categories = await _databaseService.GetAllAsync();
-            int total = categories.Count;
-            var categoryPerPage = categories.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
-            return categoryPerPage;
+            return await _databaseService.GetPagedBaseItems(pageNumber, pageSize);
         }
 
 
@@ -43,14 +34,10 @@ namespace E_commerce.Services
         {
             await _databaseService.AddAsync(category);
         }
-
-
-
         public async Task UpdateAsync(string id, Category updatedCategory) 
         {
               await _databaseService.UpdateAsync(id, updatedCategory);
         }
-
         public async Task RemoveAsync(string id)
         {
             await _databaseService.DeleteAsync(id);

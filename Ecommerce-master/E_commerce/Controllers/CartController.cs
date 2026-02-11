@@ -66,7 +66,5 @@ namespace E_commerce.Controllers
         {
             await _cartService.DeleteCartAsync(userId);
         }
-
-
     }
 }

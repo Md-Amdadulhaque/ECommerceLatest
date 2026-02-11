@@ -17,8 +17,6 @@ namespace E_commerce.Interface
         public Task DeleteAsync(FilterDefinition<T> filter);
         public Task UpdateAsyncWithFilter(FilterDefinition<T> filter, UpdateDefinition<T> update);
         public Task<T> GetItemByFilterAsync(FilterDefinition<T> filter);
-        
-
-
-        }
+        public Task<List<T>> GetPagedBaseItems(int pageNumber, int pageSize, FilterDefinition<T>? filter = null);
+    }
 }

@@ -30,6 +30,24 @@ namespace E_commerce.Services
             return await _collection.Find(_ => true).ToListAsync();
         }
 
+        public async Task<List<T>> GetPagedBaseItems(int pageNumber,int pageSize,FilterDefinition<T>? filter = null)
+        {
+           
+            var filterDefinition = filter ?? Builders<T>.Filter.Empty;
+
+            var totalCount = await _collection.CountDocumentsAsync(filterDefinition);
+
+            var items = await _collection
+                .Find(filterDefinition)
+                .Skip((pageNumber - 1) * pageSize)
+                .Limit(pageSize)
+                .ToListAsync();
+
+            return items;
+        }
+
+
+
         public async Task<List<T>> GetByFilterAsync(FilterDefinition<T> filter)
         {
             return await _collection.Find(filter).ToListAsync();

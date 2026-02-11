@@ -22,7 +22,7 @@ namespace MCP_Server.Services
         public async Task<LLMResponse> PostAsJsonAsync(string userPromt)
         {
 
-            var llmResponse = await _httpClient.PostAsJsonAsync("/predict", new { UserQuery = request.UserQuery });
+            var response = await _httpClient.PostAsJsonAsync("/predict", new { UserQuery = userPromt });
 
             if (!response.IsSuccessStatusCode)
             {

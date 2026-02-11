@@ -3,12 +3,12 @@
   "WorkspaceRootPath": "U:\\Ecommerce-master\\Ecommerce-master\\MCP Server\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{04C0D4F5-C485-40CD-989B-0D18903E792C}|MCP Server.csproj|u:\\ecommerce-master\\ecommerce-master\\mcp server\\services\\llmclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{04C0D4F5-C485-40CD-989B-0D18903E792C}|MCP Server.csproj|solutionrelative:services\\llmclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{04C0D4F5-C485-40CD-989B-0D18903E792C}|MCP Server.csproj|u:\\ecommerce-master\\ecommerce-master\\mcp server\\controllers\\chatcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{04C0D4F5-C485-40CD-989B-0D18903E792C}|MCP Server.csproj|solutionrelative:controllers\\chatcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{04C0D4F5-C485-40CD-989B-0D18903E792C}|MCP Server.csproj|u:\\ecommerce-master\\ecommerce-master\\mcp server\\services\\llmclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{04C0D4F5-C485-40CD-989B-0D18903E792C}|MCP Server.csproj|solutionrelative:services\\llmclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{04C0D4F5-C485-40CD-989B-0D18903E792C}|MCP Server.csproj|u:\\ecommerce-master\\ecommerce-master\\mcp server\\services\\toolpromptbuilder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -74,7 +74,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Document",
@@ -99,13 +99,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "LLMClient.cs",
               "DocumentMoniker": "U:\\Ecommerce-master\\Ecommerce-master\\MCP Server\\Services\\LLMClient.cs",
               "RelativeDocumentMoniker": "Services\\LLMClient.cs",
               "ToolTip": "U:\\Ecommerce-master\\Ecommerce-master\\MCP Server\\Services\\LLMClient.cs",
               "RelativeToolTip": "Services\\LLMClient.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB8AAAA+AAAAAAAAAA==",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAIwBUAAAAlAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-11-21T05:48:56.44Z",
               "EditorCaption": ""
@@ -124,15 +124,16 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "ChatController.cs",
               "DocumentMoniker": "U:\\Ecommerce-master\\Ecommerce-master\\MCP Server\\Controllers\\ChatController.cs",
               "RelativeDocumentMoniker": "Controllers\\ChatController.cs",
               "ToolTip": "U:\\Ecommerce-master\\Ecommerce-master\\MCP Server\\Controllers\\ChatController.cs",
               "RelativeToolTip": "Controllers\\ChatController.cs",
-              "ViewState": "AgIAABMAAAAAAAAAAADwvygAAABAAAAAAAAAAA==",
+              "ViewState": "AgIAABwAAAAAAAAAAADgvyYAAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-22T05:08:41.544Z"
+              "WhenOpened": "2025-11-22T05:08:41.544Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",

@@ -36,7 +36,7 @@ namespace MCP_Server.Controllers
               var llmResponse = await _llmClient.PostAsJsonAsync(prompt);
 
 
-            if (!llmResponseMsg.IsSuccessStatusCode)
+            if (!llmResponse.IsSuccessStatusCode)
                 return StatusCode(500, new { error = "LLM API error" });
 
 
