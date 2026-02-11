@@ -35,7 +35,7 @@ namespace MCP_Server.Controllers
             if (string.IsNullOrEmpty(request.UserQuery))
                 return BadRequest(new { error = "UserQuery is required" });
 
-            string prompt = ToolPromptBuilder.BuildPrompt(_toolService, request);
+            string prompt = ToolPromptBuilder.BuildPrompt(_toolService, request.UserQuery);
 
             var llmResponseMsg = await _httpClient.PostAsJsonAsync("/api/generate", new
             {
@@ -146,8 +146,6 @@ namespace MCP_Server.Controllers
     public class ChatRequest1
     {
         public string UserQuery { get; set; } = string.Empty;
-        public string UserName { get; set; } = string.Empty;
-        public string UserId { get; set; } = string.Empty;
     }
 
     public class LlmResponse

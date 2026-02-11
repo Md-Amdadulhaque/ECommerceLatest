@@ -1,8 +1,4 @@
-﻿using MCP_Server.Controllers;
-using MCP_Server.Models;
-using ModelContextProtocol.Server;
-
-namespace MCP_Server.Helpers
+﻿namespace MCP_Server.Helpers
 {
     using MCP_Server.Services;
     using System.Text;
@@ -20,7 +16,7 @@ namespace MCP_Server.Helpers
         /// <param name="toolService">The toolService<see cref="IToolService"/></param>
         /// <param name="userQuery">The userQuery<see cref="string"/></param>
         /// <returns>The <see cref="string"/></returns>
-        public static string BuildPrompt(IToolService toolService, ChatRequest1 request)
+        public static string BuildPrompt(IToolService toolService, string userQuery)
         {
             // Step 1: Get all tools
             var toolDefs = toolService.GetToolDefinitions();
@@ -196,9 +192,7 @@ namespace MCP_Server.Helpers
             sb.AppendLine("- Category keywords (laptop, phone, tablet, etc.) → Category parameter");
             sb.AppendLine();
 
-            sb.AppendLine($@"""User query: {request.UserQuery}"" -> ");
-            sb.AppendLine($@"""UserId: {request.UserId}"" -> ");
-
+            sb.AppendLine($@"""User query: {userQuery}"" -> ");
 
             return sb.ToString();
         }

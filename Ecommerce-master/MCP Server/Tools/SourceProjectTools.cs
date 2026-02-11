@@ -45,7 +45,7 @@ namespace MCP_Server.Tools
         [Description("InitiatePayment")]
         public async Task<object?> InitaitePayment()
         {
-            var result = await _client.GetAsync<object>($"/api/Cart/InitiatePayment");
+            var result = await _client.GetAsync<object>($"/api/product/category");
             return result;
         }
 
@@ -59,9 +59,9 @@ namespace MCP_Server.Tools
 
         [McpServerTool]
         [Description("Clear User Cart")]
-        public async Task<object?> ClearCart(string userId)
+        public async Task<object?> ClearCart()
         {
-            var result = await _client.GetAsync<object>($"/api/Cart/CartClear/{userId}");
+            var result = await _client.GetAsync<object>($"/api/Category");
             return result;
         }
 
