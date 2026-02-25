@@ -1,0 +1,72 @@
+# ==========================================
+# 1. .NET / Visual Studio (Backend)
+# ==========================================
+[Bb]in/
+[Oo]bj/
+[Dd]ebug/
+[Rr]elease/
+*.dll
+*.exe
+*.pdb
+*.user
+*.suo
+*.sln.docstates
+.vs/
+.history/
+
+# User-specific files
+*.rsuser
+*.userosscache
+.manageditems
+
+# Publish output
+publish/
+bin/x64/
+bin/x86/
+obj/x64/
+obj/x86/
+
+# ==========================================
+# 2. Node / Angular (Frontend)
+# ==========================================
+node_modules/
+.angular/
+dist/
+tmp/
+out-tsc/
+bazel-out/
+
+# Angular CLI generated
+.editorconfig
+.npmrc
+
+# ==========================================
+# 3. IDE & Editors (VS Code, JetBrains)
+# ==========================================
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.idea/
+*.swp
+*.bak
+*.tmp
+
+# ==========================================
+# 4. OS & Log Files
+# ==========================================
+.DS_Store
+Thumbs.db
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ==========================================
+# 5. Environment & Secrets
+# ==========================================
+.env
+.env.*
+appsettings.Development.json
+# (Note: appsettings.json রাখা ভালো, কিন্তু Development টা ইগনোর করা নিরাপদ)

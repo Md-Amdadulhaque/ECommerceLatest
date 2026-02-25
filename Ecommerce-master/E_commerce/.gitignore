@@ -1,0 +1,80 @@
+# Build results
+bin/
+obj/
+out/
+
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Visual Studio working folder
+.vs/
+
+# Logs
+*.log
+
+# Compiled source
+*.dll
+*.exe
+*.pdb
+*.cache
+*.ilk
+*.idb
+*.class
+*.jar
+*.war
+*.nar
+*.ear
+*.swf
+*.xap
+*.deploy
+*.wasm
+*.map
+*.htm
+*.html
+
+# Web-specific files
+.nuget/
+node_modules/
+
+# Dependencies
+packages/
+*.nupkg
+*.snupkg
+
+# Mono auto generated files
+mono_crash.*
+
+# Backup & Report files
+*.backup
+*.dmp
+*.err
+*.orig
+*.rej
+*.sublime-workspace
+*.sublime-project
+
+# Database
+*.mdf
+*.ldf
+
+# IDE Settings
+*.ide
+.idea/
+.vscode/
+*.code-workspace
+
+# File-based project
+project.lock.json
+project.fragment.lock.json
+
+# Temporary files
+*.tmp
+*.temp
+~$*
+
+# JetBrains Rider
+.idea/
