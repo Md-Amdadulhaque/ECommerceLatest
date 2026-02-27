@@ -103,6 +103,7 @@ namespace E_commerce
             app.UseAuthentication();
             app.UseAuthorization();
 
+            app.UseStaticFiles();
 
             app.MapControllers();
 

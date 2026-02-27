@@ -41,8 +41,23 @@ namespace E_commerce.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] Product newProduct)
+        public async Task<IActionResult> Post([FromForm] Product newProduct,IFormFile image)
         {
+            if (image != null)
+            {
+                var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "ImagesOfEcommerce", "images");
+                if (!Directory.Exists(uploadsFolder))
+                {
+                    Directory.CreateDirectory(uploadsFolder);
+                }
+                var uniqueFileName = Guid.NewGuid().ToString() + "_" + image.FileName;
+                var filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    await image.CopyToAsync(fileStream);
+                }
+                newProduct.ImageData = filePath;
+            }
             await _productService.CreateAsync(newProduct);
             return CreatedAtAction(nameof(Get), new { id = newProduct.Id }, newProduct);
         }
