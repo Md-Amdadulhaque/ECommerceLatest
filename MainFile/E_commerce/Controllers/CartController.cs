@@ -1,6 +1,5 @@
-﻿using E_commerce.Interface;
+using E_commerce.Interface;
 using E_commerce.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace E_commerce.Controllers
@@ -9,62 +8,83 @@ namespace E_commerce.Controllers
     [ApiController]
     public class CartController : ControllerBase
     {
-        private ICartService _cartService;
-        private IUserService _userService;
-        private IProductService _productService;
-        public CartController(ICartService cartService,IUserService userService,IProductService productService)
+        private readonly ICartService _cartService;
+        private readonly IProductService _productService;
+
+        public CartController(ICartService cartService, IUserService userService, IProductService productService)
         {
             _cartService = cartService;
-            _userService = userService;
             _productService = productService;
         }
+
+        /// <summary>
+        /// Retrieves all items in the user's cart.
+        /// </summary>
         [HttpPost("GetCart")]
-        public async Task<List<CartItem>?> GetCartAsync([FromBody] UserID userId)
+        public async Task<ActionResult<List<CartItem>>> GetCartAsync([FromBody] UserID userId)
         {
             var cart = await _cartService.GetCartAsync(userId.Id);
             var items = cart?.Items;
-            return items;
 
+            if (items == null)
+                return NotFound("Cart not found.");
+
+            return Ok(items);
         }
 
+        /// <summary>
+        /// Creates an empty cart for the user.
+        /// </summary>
         [HttpPost("CreateCart")]
-        public async Task CreateCartAsync([FromBody] UserID userId)
+        public async Task<IActionResult> CreateCartAsync([FromBody] UserID userId)
         {
-             await _cartService.CreateCartAsync(userId.Id);
-            
-
+            await _cartService.CreateCartAsync(userId.Id);
+            return Ok("Cart created successfully.");
         }
 
+        /// <summary>
+        /// Initiates payment for the user's cart.
+        /// </summary>
         [HttpPost("InitiatePayment")]
-        public async Task InitiatePayment([FromBody] UserID userId)
+        public async Task<IActionResult> InitiatePayment([FromBody] UserID userId)
         {
             await _cartService.InitiatePayment(userId.Id);
+            return Ok("Payment initiated successfully.");
         }
 
+        /// <summary>
+        /// Adds a product to the user's cart.
+        /// </summary>
         [HttpPost("AddToCart")]
-        public async Task<IActionResult> AddtoCartAsync([FromBody] AddToCart addToCart)
+        public async Task<IActionResult> AddToCartAsync([FromBody] AddToCart addToCart)
         {
-            string userId = addToCart.UserId;
-            string productId = addToCart.ProductId;
-
-            if (string.IsNullOrEmpty(userId) || string.IsNullOrEmpty(productId))
+            if (string.IsNullOrEmpty(addToCart.UserId) || string.IsNullOrEmpty(addToCart.ProductId))
                 return BadRequest("Invalid parameters.");
 
-            var product = await _productService.GetWithIdAsync(productId);
+            var product = await _productService.GetWithIdAsync(addToCart.ProductId);
+            if (product == null)
+                return NotFound("Product not found.");
 
-            var cartitem = new CartItem();
-            cartitem.ProductId = product.Id;
-            cartitem.ProductName = product.Name;
-            cartitem.UnitPrice = product.Price;
-            cartitem.ImageUrl = product.ImageData;
+            var cartItem = new CartItem
+            {
+                ProductId = product.Id,
+                ProductName = product.Name,
+                UnitPrice = product.Price,
+                ImageUrl = product.ImageData
+            };
 
-            await _cartService.AddItemToCartAsync(userId, cartitem);
-            return Ok();
+            await _cartService.AddItemToCartAsync(addToCart.UserId, cartItem);
+            return Ok("Item added to cart.");
         }
+
+        /// <summary>
+        /// Clears all items from the user's cart.
+        /// </summary>
         [HttpGet("CartClear/{userId}")]
-        public async Task DeleteCartItem(string userId)
+        public async Task<IActionResult> DeleteCartItem(string userId)
         {
             await _cartService.DeleteCartAsync(userId);
+            return Ok("Cart cleared successfully.");
         }
     }
 }

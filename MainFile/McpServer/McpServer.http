@@ -1,0 +1,23 @@
+@McpServer_HostAddress = http://localhost:5123
+
+### Gemini function calling
+POST {{McpServer_HostAddress}}/api/Chat
+Content-Type: application/json
+
+{
+  "message": "Show me the 3 cheapest products",
+  "name": "Test User",
+  "email": "test@example.com"
+}
+
+### Ollama JSON mode
+POST {{McpServer_HostAddress}}/api/chat/query
+Content-Type: application/json
+
+{
+  "userQuery": "Show me the 3 cheapest products",
+  "userName": "Test User",
+  "userId": "1"
+}
+
+###

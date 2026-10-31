@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="E_commerce/E_commerce.csproj" />
+  <Project Path="McpServer/McpServer.csproj" />
+</Solution>
