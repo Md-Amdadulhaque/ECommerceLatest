@@ -1,76 +1,83 @@
-﻿using System.Text.Json;
+﻿using System.Net;
+using System.Text.Json;
 using MCP_Server.Models;
 
 namespace MCP_Server.Services
 {
     public class LLMClient
     {
+        private const int MaxAttempts = 3;
+
         private readonly HttpClient _httpClient;
-        private readonly string _apiKey;
+        private readonly ILogger<LLMClient> _logger;
         private readonly string _baseUrl;
         private readonly string _model;
-        public LLMClient(
-        HttpClient http,
-        IConfiguration config)
+
+        public LLMClient(HttpClient http, IConfiguration config, ILogger<LLMClient> logger)
         {
             _httpClient = http;
-            _apiKey = config["Gemini:ApiKey"] ?? throw new InvalidOperationException("Gemini API key not configured");
+            _logger = logger;
+            var apiKey = config["Gemini:ApiKey"];
+            if (string.IsNullOrWhiteSpace(apiKey))
+                throw new InvalidOperationException("Gemini API key not configured (dotnet user-secrets set Gemini:ApiKey <key>)");
             _baseUrl = config["Gemini:BaseUrl"] ?? throw new InvalidOperationException("Gemini BaseUrl not configured");
             _model = config["Gemini:Model"] ?? throw new InvalidOperationException("Gemini Model not configured");
 
-            Console.WriteLine($"[LLMClient Init] API Key present: {!string.IsNullOrWhiteSpace(_apiKey)}");
-            Console.WriteLine($"[LLMClient Init] BaseUrl: {_baseUrl}");
-            Console.WriteLine($"[LLMClient Init] Model: {_model}");
+            // Key goes in a header, not the URL, so it never ends up in logs or traces.
+            _httpClient.DefaultRequestHeaders.Add("x-goog-api-key", apiKey);
         }
-        public async Task<LLMResponse> ProcessMessageAsync(ChatRequest userRequest, List<object> tools)
-        {
-            var fullMessage = $"User Name: {userRequest.Name}\nUser Email: {userRequest.Email}\n\nRequest: {userRequest.Message}";
 
-            var systemMessage = SystemMessage();
+        public static object UserText(string text) =>
+            new { role = "user", parts = new[] { new { text } } };
 
-            var request = new
+        public static object ToolResults(IEnumerable<(string Name, object? Result)> results) =>
+            new
             {
-                systemInstruction = new
+                role = "user",
+                parts = results.Select(r => new
                 {
-                    parts = new[]
-                    {
-                        new { text = systemMessage }
-                    }
-                },
-                contents = new[]
-                {
-                    new
-                    {
-                        role = "user",
-                        parts = new[] { new { text = fullMessage } }
-                    }
-                },
-                tools = new[]
-                {
-                    new { functionDeclarations = tools }
-                }
+                    functionResponse = new { name = r.Name, response = new { result = r.Result } }
+                }).ToArray()
             };
 
-            var url = $"{_baseUrl}/models/{_model}:generateContent?key={_apiKey}";
-
-            // Debug: Log request structure
-            var requestJson = JsonSerializer.Serialize(request);
-            Console.WriteLine($"[Gemini Request] Tools count: {tools.Count}");
-            Console.WriteLine($"[Gemini Request] URL: {url}");
-            Console.WriteLine($"[Gemini Request] Body (first 500 chars): {requestJson.Substring(0, Math.Min(500, requestJson.Length))}");
-
-            var response = await _httpClient.PostAsJsonAsync(url, request);
-
-            if (!response.IsSuccessStatusCode)
+        // One model turn: sends the whole conversation so far and returns either
+        // a text reply or the tool calls the model wants to make.
+        public async Task<LLMResponse> GenerateAsync(IReadOnlyList<object> contents, List<ToolDefinition> tools)
+        {
+            var request = new
             {
-                var errorContent = await response.Content.ReadAsStringAsync();
-                Console.WriteLine($"[Gemini Error] Status: {response.StatusCode}");
-                Console.WriteLine($"[Gemini Error] Response: {errorContent}");
-                throw new HttpRequestException($"Gemini API returned {response.StatusCode}: {errorContent}");
-            }
+                systemInstruction = new { parts = new[] { new { text = SystemMessage() } } },
+                contents,
+                tools = new[] { new { functionDeclarations = tools } }
+            };
 
-            var result = await response.Content.ReadFromJsonAsync<JsonElement>();
-            return ParseResponse(result);
+            var url = $"{_baseUrl}/models/{_model}:generateContent";
+
+            for (int attempt = 1; ; attempt++)
+            {
+                using var response = await _httpClient.PostAsJsonAsync(url, request);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var result = await response.Content.ReadFromJsonAsync<JsonElement>();
+                    return ParseResponse(result);
+                }
+
+                var errorContent = await response.Content.ReadAsStringAsync();
+                bool retryable = response.StatusCode is HttpStatusCode.TooManyRequests
+                    or HttpStatusCode.ServiceUnavailable or HttpStatusCode.InternalServerError;
+
+                if (!retryable || attempt == MaxAttempts)
+                {
+                    _logger.LogError("Gemini returned {Status}: {Error}", (int)response.StatusCode, errorContent);
+                    throw new HttpRequestException($"Gemini API returned {(int)response.StatusCode}", null, response.StatusCode);
+                }
+
+                var delay = TimeSpan.FromSeconds(Math.Pow(2, attempt));
+                _logger.LogWarning("Gemini returned {Status}, retrying in {Delay}s (attempt {Attempt}/{Max})",
+                    (int)response.StatusCode, delay.TotalSeconds, attempt, MaxAttempts);
+                await Task.Delay(delay);
+            }
         }
 
         private string SystemMessage()
@@ -90,23 +97,23 @@ CRITICAL TOOL USAGE INSTRUCTIONS:
    ✓ FIRST call CategoriesList() to get valid category names
    ✓ THEN call GetProductsByCategory() with the EXACT spelling from the list
    ✗ NEVER guess category spellings
-   
+
    When user asks for CHEAP/BUDGET products:
    ✓ Call GetCheapestProducts(count)
    ✓ If user doesn't specify count, use default value 5
-   
+
    When user asks to FILTER products (price range, color, brand, specific criteria):
    ✓ FIRST call GetProductProperties() to understand available filter properties
    ✓ THEN call FilterProducts() with filters in 'property:value' format
    ✓ Examples: 'Category:Laptop', 'MinPrice:500', 'MaxPrice:1500', 'Color:Silver'
    ✓ You can pass MULTIPLE filters in a single call
- 
-   
+
+
    When user wants to CLEAR their cart:
-   ✓ Call ClearCart(userId) with the user's ID
-   
+   ✓ Call ClearCart() (the current user is identified automatically)
+
    When user wants to CHECKOUT/PAY:
-   ✓ Call InitiatePayment()
+   ✓ Call InitiatePayment() (the current user is identified automatically)
 
 3. PARAMETER EXTRACTION RULES:
    - Extract values from the user's natural language request
@@ -117,10 +124,10 @@ CRITICAL TOOL USAGE INSTRUCTIONS:
 
 4. MULTI-STEP WORKFLOWS:
    For category queries:
-   Step 1: Call CategoriesList() 
+   Step 1: Call CategoriesList()
    Step 2: Match user's request to correct spelling
    Step 3: Call GetProductsByCategory(category)
-   
+
    For complex filters:
    Step 1: Call GetProductProperties() to understand available properties
    Step 2: Map user's query to property names
@@ -132,6 +139,7 @@ CRITICAL TOOL USAGE INSTRUCTIONS:
    - ALWAYS use EXACT category spelling from CategoriesList()
    - For price filters, use MinPrice and MaxPrice (not just 'Price')
    - Pass multiple filters in ONE FilterProducts() call, not multiple calls
+   - If a tool result contains an 'error', tell the user briefly what went wrong
 
 6. RESPONSE FORMAT:
    After calling a tool:
@@ -159,7 +167,7 @@ User: 'Show me all product categories'
 → Call GetAllCategory()
 
 User: 'Clear my cart'
-→ Call ClearCart(userId)
+→ Call ClearCart()
 
 Remember: The tools are your only way to access real product data. Use them correctly and completely.";
             return systemPrompt;
@@ -169,55 +177,36 @@ Remember: The tools are your only way to access real product data. Use them corr
         {
             var response = new LLMResponse();
 
-            // Navigate: candidates[0].content.parts
-            if (!result.TryGetProperty("candidates", out var candidates))
+            if (!result.TryGetProperty("candidates", out var candidates) || candidates.GetArrayLength() == 0
+                || !candidates[0].TryGetProperty("content", out var content)
+                || !content.TryGetProperty("parts", out var parts))
             {
-                Console.WriteLine("[Gemini Response] No candidates found");
+                _logger.LogWarning("Gemini response had no content: {Response}", result.GetRawText());
                 return response;
             }
 
-            if (candidates.GetArrayLength() == 0)
-            {
-                Console.WriteLine("[Gemini Response] Candidates array is empty");
-                return response;
-            }
-
-            if (!candidates[0].TryGetProperty("content", out var content))
-            {
-                Console.WriteLine("[Gemini Response] No content in first candidate");
-                return response;
-            }
-
-            if (!content.TryGetProperty("parts", out var parts))
-            {
-                Console.WriteLine("[Gemini Response] No parts in content");
-                return response;
-            }
+            response.ModelContent = content.Clone();
 
             foreach (var part in parts.EnumerateArray())
             {
-                // Text response
+                // Skip internal reasoning parts from thinking models.
+                if (part.TryGetProperty("thought", out var thought) && thought.ValueKind == JsonValueKind.True)
+                    continue;
+
                 if (part.TryGetProperty("text", out var textProp))
                 {
-                    var textValue = textProp.GetString() ?? "";
-                    response.TextReply += textValue;
-                    Console.WriteLine($"[Gemini Response] Text: {textValue}");
+                    response.TextReply += textProp.GetString() ?? "";
                 }
-                // Function call
                 else if (part.TryGetProperty("functionCall", out var functionCall))
                 {
-                    response.ToolUse = functionCall.GetProperty("name").GetString();
-                    Console.WriteLine($"[Gemini Response] Tool called: {response.ToolUse}");
-
-                    if (functionCall.TryGetProperty("args", out var args))
+                    response.FunctionCalls.Add(new FunctionCall
                     {
-                        response.ToolInput = args;
-                        Console.WriteLine($"[Gemini Response] Tool args: {JsonSerializer.Serialize(args)}");
-                    }
+                        Name = functionCall.GetProperty("name").GetString() ?? "",
+                        Args = functionCall.TryGetProperty("args", out var args) ? args.Clone() : default
+                    });
                 }
             }
             return response;
         }
-
     }
 }

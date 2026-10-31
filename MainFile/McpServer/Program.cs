@@ -28,10 +28,11 @@ builder.Services.AddHttpClient<SourceClient>(
         ?? "http://localhost:5000");
     }
     );
-builder.Services.AddHttpClient<LLMClient>();
+builder.Services.AddHttpClient<LLMClient>(client => client.Timeout = TimeSpan.FromSeconds(60));
+builder.Services.AddScoped<AgentService>();
 builder.Services.AddScoped<ToolExecutor>();
 builder.Services.AddSingleton<IToolService, ToolService>();
-builder.Services.AddSingleton<SourceProjectTools>();
+builder.Services.AddScoped<SourceProjectTools>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

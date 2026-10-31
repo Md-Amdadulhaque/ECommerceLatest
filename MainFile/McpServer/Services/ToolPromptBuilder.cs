@@ -41,142 +41,102 @@ namespace MCP_Server.Helpers
             // Step 3: Include tool definitions
             foreach (var tool in toolDefs)
             {
-                try
+                string toolName = tool.Name;
+
+                sb.Append($"- {toolName}");
+
+                var props = tool.Parameters?.Properties;
+                if (props is { Count: > 0 })
                 {
-                    var toolDict = tool as dynamic;
-                    string toolName = toolDict.name ?? "UnknownTool";
-                    string toolDesc = toolDict.description ?? "No description";
-
-                    sb.Append($"- {toolName}");
-
-                    var parametersObj = toolDict.parameters?.properties;
-                    if (parametersObj is IDictionary<string, object> props && props.Count > 0)
-                    {
-                        var paramList = new List<string>();
-                        foreach (var kvp in props)
-                        {
-                            try
-                            {
-                                var p = kvp.Value as dynamic;
-                                string desc = p?.description ?? kvp.Key;
-                                paramList.Add($"{kvp.Key}: {desc}");
-                            }
-                            catch
-                            {
-                                paramList.Add(kvp.Key);
-                            }
-                        }
-
-                        sb.Append($"({string.Join(", ", paramList)})");
-                    }
-                    else
-                    {
-                        sb.Append("(no parameters)");
-                    }
-
-                    sb.AppendLine($" - {toolDesc}");
-                    if (toolName == "CategoriesList")
-                    {
-                        sb.AppendLine(
-                            "Laptop, Mac, Mobile, Tablet, Accessories, Books, Electronics, Cycle, Furniture, Sports, Toys, Footwear, Gaming");
-                    }
-
-                    if (toolName == "GetProductProperties")
-                    {
-                        string propertyDetails = """
-                            {
-                            "properties": [
-                            {
-                            "name": "Name",
-                            "type": "string",
-                            "nullable": false,
-                            "description": "Product name",
-                            "searchable": true,
-                            "examples": ["MacBook Pro", "Dell XPS 15", "iPhone 15"]
-                            },
-                            {
-                            "name": "MinPrice",
-                            "type": "integer",
-                            "nullable": true,
-                            "description": "Product price",
-                            "filterable": true,
-                            "supportsRange": true
-                            },
-                            {
-                            "name": "MaxPrice",
-                            "type": "integer",
-                            "nullable": true,
-                            "description": "Product price",
-                            "filterable": true,
-                            "supportsRange": true
-                            },
-                            {
-                            "name": "Category",
-                            "type": "string",
-                            "nullable": false,
-                            "description": "Product category",
-                            "filterable": true,
-                            "examples": ["laptop", "mobile", "tablet", "accessories"]
-                            },
-                            {
-                            "name": "Color",
-                            "type": "string",
-                            "nullable": true,
-                            "description": "Product color",
-                            "filterable": true,
-                            "examples": ["Silver", "Black", "White", "Gold", "Blue"]
-                            }
-                            ],
-                            "filterMapping": {
-                            "byText": ["Name"],
-                            "byCategory": ["Category"],
-                            "byPriceRange": ["MinPrice", "MaxPrice"],
-                            "byColor": ["Color"]
-                            }
-                            }
-                            """;
-                        sb.AppendLine("When you will get multiple filterable property then map property with this");
-                        sb.AppendLine(propertyDetails);
-                    }
+                    var paramList = props.Select(kvp => $"{kvp.Key}: {kvp.Value.Description ?? kvp.Key}");
+                    sb.Append($"({string.Join(", ", paramList)})");
                 }
-                catch
+                else
                 {
-                    // Ignore tools that fail at runtime
-                    sb.AppendLine("- <Failed to read tool metadata>");
+                    sb.Append("(no parameters)");
+                }
+
+                sb.AppendLine($" - {tool.Description}");
+                if (toolName == "CategoriesList")
+                {
+                    sb.AppendLine(
+                        "Laptop, Mac, Mobile, Tablet, Accessories, Books, Electronics, Cycle, Furniture, Sports, Toys, Footwear, Gaming");
+                }
+
+                if (toolName == "GetProductProperties")
+                {
+                    string propertyDetails = """
+                        {
+                        "properties": [
+                        {
+                        "name": "Name",
+                        "type": "string",
+                        "nullable": false,
+                        "description": "Product name",
+                        "searchable": true,
+                        "examples": ["MacBook Pro", "Dell XPS 15", "iPhone 15"]
+                        },
+                        {
+                        "name": "MinPrice",
+                        "type": "integer",
+                        "nullable": true,
+                        "description": "Product price",
+                        "filterable": true,
+                        "supportsRange": true
+                        },
+                        {
+                        "name": "MaxPrice",
+                        "type": "integer",
+                        "nullable": true,
+                        "description": "Product price",
+                        "filterable": true,
+                        "supportsRange": true
+                        },
+                        {
+                        "name": "Category",
+                        "type": "string",
+                        "nullable": false,
+                        "description": "Product category",
+                        "filterable": true,
+                        "examples": ["laptop", "mobile", "tablet", "accessories"]
+                        },
+                        {
+                        "name": "Color",
+                        "type": "string",
+                        "nullable": true,
+                        "description": "Product color",
+                        "filterable": true,
+                        "examples": ["Silver", "Black", "White", "Gold", "Blue"]
+                        }
+                        ],
+                        "filterMapping": {
+                        "byText": ["Name"],
+                        "byCategory": ["Category"],
+                        "byPriceRange": ["MinPrice", "MaxPrice"],
+                        "byColor": ["Color"]
+                        }
+                        }
+                        """;
+                    sb.AppendLine("When you will get multiple filterable property then map property with this");
+                    sb.AppendLine(propertyDetails);
                 }
             }
 
             sb.AppendLine();
             sb.AppendLine("Examples:");
 
-            // Add examples dynamically (safe version)
             foreach (var tool in toolDefs)
             {
-                try
+                string exampleParams = "{}";
+
+                var props = tool.Parameters?.Properties;
+                if (props is { Count: > 0 })
                 {
-                    var toolDict = tool as dynamic;
-                    string toolName = toolDict.name ?? "UnknownTool";
-
-                    var parametersObj = toolDict.parameters?.properties;
-                    string exampleParams = "{}";
-
-                    if (parametersObj is IDictionary<string, object> props && props.Count > 0)
-                    {
-                        var paramPairs = new List<string>();
-                        foreach (var kvp in props)
-                        {
-                            string value = $"<value_for_{kvp.Key}>";
-                            paramPairs.Add($"\"{kvp.Key}\":\"{value}\"");
-                        }
-                        exampleParams = "{" + string.Join(",", paramPairs) + "}";
-                    }
-
-                    sb.AppendLine($@"""example query for {toolName}"" -> {{""Tool"":""{toolName}"",""Parameters"":{exampleParams}}}");
+                    var paramPairs = props.Keys.Select(key => $"\"{key}\":\"<value_for_{key}>\"");
+                    exampleParams = "{" + string.Join(",", paramPairs) + "}";
                 }
-                catch
-                {
-                    sb.AppendLine($@"""example query for UnknownTool"" -> {{""Tool"":""UnknownTool"",""Parameters"":{{}}}}");
-                }
+
+                sb.AppendLine($@"""example query for {tool.Name}"" -> {{""Tool"":""{tool.Name}"",""Parameters"":{exampleParams}}}");
             }
 
             sb.AppendLine();
@@ -191,8 +151,6 @@ namespace MCP_Server.Helpers
             sb.AppendLine();
 
             sb.AppendLine($@"""User query: {request.UserQuery}"" -> ");
-            sb.AppendLine($@"""UserId: {request.UserId}"" -> ");
-
 
             return sb.ToString();
         }

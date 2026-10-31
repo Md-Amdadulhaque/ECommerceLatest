@@ -1,7 +1,6 @@
 ﻿using MCP_Server.Models;
 using MCP_Server.Services;
 using Microsoft.AspNetCore.Mvc;
-using MyMcpServer.Services;
 
 namespace MCP_Server.Controllers
 {
@@ -9,46 +8,31 @@ namespace MCP_Server.Controllers
     [ApiController]
     public class ChatController : ControllerBase
     {
-        private readonly LLMClient _llmClient;
-        private readonly ToolExecutor _toolExecutor;
-        private readonly IToolService _toolService;
+        private readonly AgentService _agent;
 
-        public ChatController(LLMClient llmClient, ToolExecutor toolExecutor, IToolService toolService)
+        public ChatController(AgentService agent)
         {
-            _llmClient = llmClient;
-            _toolExecutor = toolExecutor;
-            _toolService = toolService;
+            _agent = agent;
         }
 
         [HttpPost]
         public async Task<ActionResult<ChatResponse>> Chat([FromBody] ChatRequest request)
         {
-            // Auto-discover tools from ToolService
-            var tools = _toolService.GetToolDefinitions();
+            if (string.IsNullOrWhiteSpace(request.Message))
+                return BadRequest(new { error = "Message is required" });
 
-
-           // var toolResult = await _toolExecutor.ExecuteAsync("GetProductsByCategory", { "Laptop"});
-
-            var llmResponse = await _llmClient
-                .ProcessMessageAsync(request, tools);
-
-            if (llmResponse.ToolUse != null)
+            try
             {
-                var toolName = llmResponse.ToolUse;
-                var toolInput = llmResponse.ToolInput;
-                var toolResult = await _toolExecutor.ExecuteAsync(toolName, toolInput);
-                return Ok(new ChatResponse
-                {
-                    ToolUsed = toolResult?.ToolUsed,
-                    ToolResult = toolResult?.Result,
-                    Reply = "Found Product"
-                });
+                return Ok(await _agent.ChatAsync(request));
             }
-            
-            return Ok(new ChatResponse
-                {
-                    Reply = "No ToolFound"
-                });
+            catch (HttpRequestException ex)
+            {
+                return StatusCode(StatusCodes.Status502BadGateway, new { error = "The AI service is unavailable right now", details = ex.Message });
+            }
+            catch (TaskCanceledException)
+            {
+                return StatusCode(StatusCodes.Status504GatewayTimeout, new { error = "The AI service took too long to respond" });
+            }
         }
     }
 }

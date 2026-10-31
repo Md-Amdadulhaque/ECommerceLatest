@@ -72,7 +72,7 @@ namespace MCP_Server.Controllers
                     return StatusCode(500, new { error = "Failed to parse tool call", response = toolJson });
                 }
 
-                var result = _toolExecutor.ExecuteAsync(toolCall.Tool, JsonSerializer.SerializeToElement(toolCall.Parameters));
+                var result = await _toolExecutor.ExecuteAsync(toolCall.Tool, JsonSerializer.SerializeToElement(toolCall.Parameters), request.UserId);
 
                 // Return structured response
                 return Ok(new
@@ -80,7 +80,7 @@ namespace MCP_Server.Controllers
                     success = true,
                     tool = toolCall.Tool,
                     parameters = toolCall.Parameters,
-                    Result = result
+                    Result = result.Result
                 });
             }
             catch (JsonException ex)

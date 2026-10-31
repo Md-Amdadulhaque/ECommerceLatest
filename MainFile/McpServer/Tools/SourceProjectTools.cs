@@ -1,9 +1,10 @@
 ﻿using System.ComponentModel;
 using ModelContextProtocol.Server;
 using MCP_Server.Services;
-using System.Text.Json;
 namespace MCP_Server.Tools
 {
+    // Every [McpServerTool] method here is offered to the LLM automatically.
+    // A parameter named userId is filled from the request, not by the LLM.
     [McpServerToolType]
     public class SourceProjectTools
     {
@@ -14,21 +15,13 @@ namespace MCP_Server.Tools
         {
             _client = sourceClient;
         }
-        //[McpServerTool]
-        //[Description("Get customer information by ID")]
-        //public async Task<object?> GetCustomer(
-        //    [Description("The customer ID")] string customerId)
-        //{
-        //    var result = await _client.GetAsync<object>($"/api/customers/{customerId}");
-        //    return result;
-        //}
+
         [McpServerTool]
         [Description("Get products by category (Laptop, Mac, Mobile, etc)")]
         public async Task<object?> GetProductsByCategory(
             [Description("Category name (e.g., Laptop, Mac, Mobile) Name spelling will be fixed by another tool exposed below called CategoriesList")] string category)
         {
-            var result = await _client.GetAsync<object>($"/api/product/category/{category}");
-            return result;
+            return await _client.GetAsync($"/api/product/category/{Uri.EscapeDataString(category)}");
         }
 
         [McpServerTool]
@@ -36,32 +29,28 @@ namespace MCP_Server.Tools
         public async Task<object?> GetCheapestProducts(
             [Description("Number of cheapest products to return. By default 5")] int count = 5)
         {
-            var result = await _client.GetAsync<object>($"/api/product/cheapest?count={count}");
-            return result;
+            return await _client.GetAsync($"/api/product/cheapest?count={count}");
         }
 
         [McpServerTool]
-        [Description("InitiatePayment")]
-        public async Task<object?> InitaitePayment()
+        [Description("Start checkout and payment for the current user's cart")]
+        public async Task<object?> InitiatePayment(string userId)
         {
-            var result = await _client.GetAsync<object>($"/api/Cart/InitiatePayment");
-            return result;
+            return await _client.PostAsync("/api/Cart/InitiatePayment", new { Id = userId });
         }
 
         [McpServerTool]
         [Description("Get all category from Api")]
         public async Task<object?> GetAllCategory()
         {
-            var result = await _client.GetAsync<object>($"/api/Category");
-            return result;
+            return await _client.GetAsync("/api/Category");
         }
 
         [McpServerTool]
-        [Description("Clear User Cart")]
+        [Description("Remove all items from the current user's cart")]
         public async Task<object?> ClearCart(string userId)
         {
-            var result = await _client.GetAsync<object>($"/api/Cart/CartClear/{userId}");
-            return result;
+            return await _client.GetAsync($"/api/Cart/CartClear/{Uri.EscapeDataString(userId)}");
         }
 
         [McpServerTool]
@@ -96,9 +85,7 @@ namespace MCP_Server.Tools
         {
             var filterRequest = ParseToFilterRequest(filters);
 
-            var result = await _client.PostAsJsonAsync<object>("/api/product/GetByFilterRequestModel", JsonContent.Create(filterRequest));
-            
-            return result;
+            return await _client.PostAsync("/api/product/GetByFilterRequestModel", filterRequest);
         }
 
         private ProductFilterRequest ParseToFilterRequest(string[] filters)
@@ -153,9 +140,9 @@ namespace MCP_Server.Tools
 
         [McpServerTool]
         [Description("Get available ProductFilter properties and their details to help map user queries to filterable fields. Use property Name to map. This is description of property in details not for tool to execute")]
-        public async Task<object?> GetProductProperties()
+        public Task<object?> GetProductProperties()
         {
-            return new
+            return Task.FromResult<object?>(new
             {
                 properties = new object[]
                 {
@@ -207,7 +194,7 @@ namespace MCP_Server.Tools
                     byPriceRange = new[] { "MinPrice","MaxPrice" },
                     byColor = new[] { "Color" },
                 }
-            };
+            });
         }
 
     }

@@ -1,47 +1,32 @@
-﻿using System.Text.Json;
-using MCP_Server.Services;
+﻿using System.Reflection;
+using System.Text.Json;
 using MCP_Server.Models;
-using ModelContextProtocol.Protocol;
+using MCP_Server.Services;
 using MCP_Server.Tools;
-using System.Reflection;
+using ModelContextProtocol.Server;
+
 namespace MyMcpServer.Services;
 
-public static class ObjectExtensions
-{
-    public static T? ToModel<T>(this object? obj)
-    {
-        if (obj == null) return default;
-
-        if (obj is T typed)
-            return typed;
-
-        if (obj is JsonElement json)
-            return json.Deserialize<T>();
-
-        var jsonString = JsonSerializer.Serialize(obj);
-        return JsonSerializer.Deserialize<T>(jsonString);
-    }
-}
 public class ToolExecutor
 {
-    private readonly SourceClient _client;
-    private readonly JsonSerializerOptions _jsonOptions = new() { WriteIndented = true };
     private readonly SourceProjectTools _sourceProjectTools;
-    public ToolExecutor(SourceClient client,SourceProjectTools sourceProjectTools)
+    private readonly ILogger<ToolExecutor> _logger;
+
+    public ToolExecutor(SourceProjectTools sourceProjectTools, ILogger<ToolExecutor> logger)
     {
-        _client = client;
         _sourceProjectTools = sourceProjectTools;
+        _logger = logger;
     }
 
-    public async Task<ToolResult?> ExecuteAsync(string toolName, JsonElement input)
+    // Runs any [McpServerTool] method by name. Errors are returned as data (not thrown)
+    // so the LLM can see what went wrong and recover or explain it to the user.
+    // userId comes from the caller's request, never from the LLM, so a prompt
+    // cannot make the agent act on another user's cart.
+    public async Task<ToolResult> ExecuteAsync(string toolName, JsonElement input, string? userId)
     {
-
-        var type = typeof(SourceProjectTools);
-        var method = type.GetMethod(toolName,
-        BindingFlags.Public | BindingFlags.Instance);
-
-        if (method == null) throw new Exception("Method not found");
-
+        var method = typeof(SourceProjectTools).GetMethod(toolName, BindingFlags.Public | BindingFlags.Instance);
+        if (method == null || method.GetCustomAttribute<McpServerToolAttribute>() == null)
+            return Error(toolName, $"Unknown tool '{toolName}'");
 
         var parameters = method.GetParameters();
         var args = new object?[parameters.Length];
@@ -50,35 +35,51 @@ public class ToolExecutor
         {
             var p = parameters[i];
 
-            if (input.TryGetProperty(p.Name!, out var val))
+            if (ToolService.IsContextParameter(p))
             {
-                args[i] = JsonSerializer.Deserialize(val.GetRawText(), p.ParameterType);
+                if (string.IsNullOrEmpty(userId))
+                    return Error(toolName, "This action needs a logged-in user, but no userId was provided");
+                args[i] = userId;
+            }
+            else if (input.ValueKind == JsonValueKind.Object && input.TryGetProperty(p.Name!, out var val))
+            {
+                try
+                {
+                    args[i] = val.Deserialize(p.ParameterType);
+                }
+                catch (JsonException)
+                {
+                    return Error(toolName, $"Parameter '{p.Name}' must be of type {p.ParameterType.Name}");
+                }
+            }
+            else if (p.HasDefaultValue)
+            {
+                args[i] = p.DefaultValue;
+            }
+            else if (p.ParameterType.IsArray)
+            {
+                args[i] = Array.CreateInstance(p.ParameterType.GetElementType()!, 0);
             }
             else
             {
-                args[i] = p.HasDefaultValue ? p.DefaultValue : null;
+                return Error(toolName, $"Missing required parameter '{p.Name}'");
             }
         }
-        if (args == null)
+
+        try
         {
-            return new ToolResult();
+            var task = (Task)method.Invoke(_sourceProjectTools, args)!;
+            await task;
+            var result = task.GetType().GetProperty("Result")?.GetValue(task);
+            return new ToolResult { ToolUsed = toolName, Result = result };
         }
-
-        var now = toolName switch
+        catch (Exception ex)
         {
-           // "GetCustomer" => await _sourceProjectTools.GetCustomer(args[0].ToString()),
-            "GetCheapestProducts" => await _sourceProjectTools.GetCheapestProducts(int.Parse(args[0].ToString())),
-            "GetProductsByCategory" => await _sourceProjectTools.GetProductsByCategory(args[0].ToString()),
-            "GetAllCategory" => await _sourceProjectTools.GetAllCategory(),
-            "InitaitePayment" => await _sourceProjectTools.InitaitePayment(),
-            "ClearCart" => await _sourceProjectTools.ClearCart(args[0].ToString()),
-            "FilterProducts" => await _sourceProjectTools.FilterProducts((string[])args[0]!),
-            _ => new object()
-        };
-
-        ToolResult result = new ToolResult();
-        result.Result = now;
-        return result;
-
+            _logger.LogError(ex, "Tool {Tool} failed", toolName);
+            return Error(toolName, $"Tool failed: {ex.Message}");
+        }
     }
+
+    private static ToolResult Error(string toolName, string message) =>
+        new() { ToolUsed = toolName, Result = new { error = message } };
 }
